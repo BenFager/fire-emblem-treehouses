@@ -12,7 +12,11 @@ public class WorldMap: MonoBehaviour
     BoundsInt boundsFloor;
     BoundsInt boundsObjects;
     MapTile[,] mapTiles;
-    
+    DebugTiles debugTiles;
+    Vector2Int lastMouseClick;
+    Pathfinding pathfinding;
+    Boolean pathing;
+
     enum tileLabel
     {
         FOREST, MOUNTAIN, PLAIN, FORT, NULL
@@ -41,21 +45,47 @@ public class WorldMap: MonoBehaviour
                 
             }
         }
-        Debug.Log(tilemapFloor.GetTile(new Vector3Int(0, 0, 0)));
+
+        debugTiles = transform.Find("TilemapDebug").GetComponent<DebugTiles>();
+        pathfinding = GetComponent<Pathfinding>();
+
     }
 
-    // Update is called once per frame
+    // Update is called once per frame---------------------------------------------------------------------------------------------------------------------
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-           Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-           Vector2Int arrayMousePos = WorldToArrayPos(mousePos);
-           Debug.Log(arrayMousePos + " " + mapTiles[arrayMousePos.x, arrayMousePos.y].ToString());
-            
-            
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2Int arrayMousePos = WorldToArrayPos(mousePos);
+            lastMouseClick = arrayMousePos;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            ClearDebugLines();
+            ClearDebugTiles();
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2Int arrayMousePos = WorldToArrayPos(mousePos);
+            pathfinding.AStar(mapTiles, lastMouseClick, arrayMousePos);
+            pathing = true;
+
+        }
+        if (pathing)
+        {
+            if (pathfinding.complete)
+            {
+                if (pathfinding.path != null)
+                {
+                    for (int i = 0; i < pathfinding.path.Count - 1; i++)
+                    {
+                        SetDebugLine(pathfinding.path[i], pathfinding.path[i + 1]);
+                    }
+                }
+                pathing = false;
+            }
         }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     Vector2 arrayPosToWorld(Vector2Int input)
     {
@@ -164,6 +194,23 @@ public class WorldMap: MonoBehaviour
             multiple = Math.Max(1, Math.Abs(multiple));
             return multiple * (int)Math.Floor((float)value / multiple);
         }
+
+    public void SetDebugTile(Vector2Int arrayPos, Color c)
+    {
+        debugTiles.SetTile(arrayPosToWorld(arrayPos), c);
+    }
+    public void ClearDebugTiles()
+    {
+        debugTiles.ClearTiles();
+    }
+    public void SetDebugLine(Vector2Int arrayPosA, Vector2Int arrayPosB)
+    {
+        debugTiles.SetLine(arrayPosToWorld(arrayPosA) + (Vector2)tilemapFloor.cellSize, arrayPosToWorld(arrayPosB) + (Vector2)tilemapFloor.cellSize);
+    }
+    public void ClearDebugLines()
+    {
+        debugTiles.ClearLines();
+    }
 }
 
 public enum floor
@@ -186,5 +233,37 @@ public class MapTile
     {
         return floorData.ToString() + " " + mapObjectData.ToString();
     }
-    
+    public Boolean GetPassable()
+    {
+        if((mapObjectData != mapObject.HOUSE && mapObjectData != mapObject.NULL) || floorData == floor.NULL)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+    public float GetCost()
+    {
+        switch (floorData)
+        {
+            case floor.FOREST:
+                return 2;
+            case floor.MOUNTAIN:
+                return 3;
+            case floor.PLAIN:
+                return 1;
+            case floor.FORT:
+                return 2;
+            case floor.FLOOR:
+                return 1;
+            default:
+                return 1;
+        }
+
+    }
 }
+
