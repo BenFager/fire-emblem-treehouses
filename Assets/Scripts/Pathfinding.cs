@@ -8,15 +8,13 @@ public class Pathfinding : MonoBehaviour
     WorldMap worldMap;
     AStarNode[,] aStarNodeArray;
     
+    
     static List<Vector2Int> neighborCells = new List<Vector2Int> {
         new Vector2Int(1, 0),
         new Vector2Int(0, 1),
         new Vector2Int(-1, 0),
         new Vector2Int(0, -1),
     };
-    Coroutine visualization;
-    public bool complete = false;
-    public List<Vector2Int> path;
 
     // Start is called before the first frame update
     void Start()
@@ -62,8 +60,9 @@ public class Pathfinding : MonoBehaviour
         return neighbors;
     }
 
-    public void AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal)
+    public List<Vector2Int> AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, bool pathMode)//True: return path, False, return all possibilities
     {
+        List<Vector2Int> nodesInRange = new List<Vector2Int>();
         aStarNodeArray = new AStarNode[mapTiles.GetLength(0), mapTiles.GetLength(1)];
         for(int x = 0; x < mapTiles.GetLength(0); x++)
         {
@@ -71,7 +70,15 @@ public class Pathfinding : MonoBehaviour
             {
                 aStarNodeArray[x, y] = new AStarNode(new Vector2Int(x, y));
                 aStarNodeArray[x, y].gScore = float.PositiveInfinity;
-                aStarNodeArray[x, y].hScore = /*Distance(new Vector2Int(x, y), goal)*/0;
+                if(pathMode)
+                {
+                    aStarNodeArray[x, y].hScore = Distance(new Vector2Int(x, y), goal);
+                }
+                else
+                {
+                    aStarNodeArray[x, y].hScore = 0;
+                }
+                
             }
         }
         aStarNodeArray[start.x, start.y].gScore = 0;
@@ -79,48 +86,37 @@ public class Pathfinding : MonoBehaviour
 
         openSet.Enqueue(aStarNodeArray[start.x, start.y], aStarNodeArray[start.x, start.y].fScore);
 
-        complete = false;
 
-        if (visualization != null)
-        {
-            StopCoroutine(visualization);
-        }
-        visualization = StartCoroutine(RunAStar(mapTiles, start, goal, aStarNodeArray, openSet));
-    }
 
-    private IEnumerator RunAStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, AStarNode[,] nodes, FastPriorityQueue<AStarNode> openSet)
-    {
         worldMap.SetDebugTile(start, Color.cyan);
         worldMap.SetDebugTile(start, Color.red);
-        if(!mapTiles[start.x, start.y].GetPassable() || !mapTiles[goal.x,goal.y].GetPassable())
+        if (pathMode && (!mapTiles[start.x, start.y].GetPassable() || !mapTiles[goal.x, goal.y].GetPassable() ))
         {
-            complete = true;
-            path = ReconstructPath(start, goal, nodes);
-            yield break;
+            return ReconstructPath(start, goal, aStarNodeArray);
         }
         while (openSet.Count != 0)
         {
             AStarNode currentNode = openSet.Dequeue();
 
-            if(currentNode.gScore > 5)
+            if (currentNode.gScore > maxCost)
             {
-                complete = true;
-                path = ReconstructPath(start, goal, nodes);
-                yield break;
+                return nodesInRange;
             }
 
-            if (currentNode.pos == goal)
+            if (pathMode && currentNode.pos == goal)
             {
                 worldMap.SetDebugTile(goal, Color.green);
-                complete = true;
-                path = ReconstructPath(start, goal, nodes);
-                yield break;
+                return ReconstructPath(start, goal, aStarNodeArray);
             }
             currentNode.closed = true;
             worldMap.SetDebugTile(currentNode.pos, Color.blue);
+            if(!pathMode)
+            {
+                nodesInRange.Add(currentNode.pos);
+            }
             foreach (Vector2Int v in GetNeighbors(currentNode, mapTiles))
             {
-                AStarNode currentNeighbor = nodes[v.x, v.y];
+                AStarNode currentNeighbor = aStarNodeArray[v.x, v.y];
                 if (currentNeighbor.closed)
                 {
                     continue;
@@ -140,13 +136,18 @@ public class Pathfinding : MonoBehaviour
                     openSet.UpdatePriority(currentNeighbor, currentNeighbor.fScore);
                 }
             }
-            yield return new WaitForSeconds(0.1f); 
 
         }
-        complete = true;
-        path = ReconstructPath(start, goal, nodes);
-        yield break;
+        if (pathMode)
+        {
+            return ReconstructPath(start, goal, aStarNodeArray);
+        }
+        else
+        {
+            return nodesInRange;
+        }
     }
+
 
     private List<Vector2Int> ReconstructPath(Vector2Int start, Vector2Int goal, AStarNode[,] nodes)
     {

@@ -15,7 +15,6 @@ public class WorldMap: MonoBehaviour
     DebugTiles debugTiles;
     Vector2Int lastMouseClick;
     Pathfinding pathfinding;
-    Boolean pathing;
 
     enum tileLabel
     {
@@ -66,24 +65,19 @@ public class WorldMap: MonoBehaviour
             ClearDebugTiles();
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2Int arrayMousePos = WorldToArrayPos(mousePos);
-            pathfinding.AStar(mapTiles, lastMouseClick, arrayMousePos);
-            pathing = true;
+            List<Vector2Int> path = pathfinding.AStar(mapTiles, lastMouseClick, arrayMousePos, 5, false);
+
+            if (path != null)
+            {
+                for (int i = 0; i < path.Count - 1; i++)
+                {
+
+                    //SetDebugLine(path[i], path[i + 1]);
+                }
+            }
 
         }
-        if (pathing)
-        {
-            if (pathfinding.complete)
-            {
-                if (pathfinding.path != null)
-                {
-                    for (int i = 0; i < pathfinding.path.Count - 1; i++)
-                    {
-                        SetDebugLine(pathfinding.path[i], pathfinding.path[i + 1]);
-                    }
-                }
-                pathing = false;
-            }
-        }
+
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
