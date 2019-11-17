@@ -101,8 +101,8 @@ public class Pathfinding : MonoBehaviour
 
 
 
-        worldMap.SetDebugTile(start, Color.cyan);
-        worldMap.SetDebugTile(start, Color.red);
+        //worldMap.SetDebugTile(start, Color.cyan);
+        //worldMap.SetDebugTile(start, Color.red);
         if (pathMode && (!mapTiles[start.x, start.y].GetPassable() || !mapTiles[goal.x, goal.y].GetPassable() ))
         {
             return ReconstructPath(start, goal, aStarNodeArray, maxCost);
@@ -118,11 +118,11 @@ public class Pathfinding : MonoBehaviour
 
             if (pathMode && currentNode.pos == goal)
             {
-                worldMap.SetDebugTile(goal, Color.green);
+                //worldMap.SetDebugTile(goal, Color.green);
                 return ReconstructPath(start, goal, aStarNodeArray, maxCost);
             }
             currentNode.closed = true;
-            worldMap.SetDebugTile(currentNode.pos, Color.blue);
+           // worldMap.SetDebugTile(currentNode.pos, Color.blue);
             if(!pathMode)
             {
                 nodesInRange.Add(currentNode.pos);
@@ -137,7 +137,7 @@ public class Pathfinding : MonoBehaviour
                 if (!openSet.Contains(currentNeighbor))
                 {
                     openSet.Enqueue(currentNeighbor, currentNeighbor.fScore);
-                    worldMap.SetDebugTile(currentNeighbor.pos, Color.magenta);
+                    //worldMap.SetDebugTile(currentNeighbor.pos, Color.magenta);
                     currentNeighbor.prevPos = currentNode.pos;
                 }
                 float tentative_gScore = currentNode.gScore + Cost(mapTiles, currentNode.pos, currentNeighbor.pos);

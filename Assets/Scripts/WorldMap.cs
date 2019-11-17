@@ -53,7 +53,7 @@ public class WorldMap: MonoBehaviour
     // Update is called once per frame---------------------------------------------------------------------------------------------------------------------
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2Int arrayMousePos = WorldToArrayPos(mousePos);
@@ -76,17 +76,17 @@ public class WorldMap: MonoBehaviour
                 }
             }
 
-        }
+        }*/
 
     }
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    Vector2 arrayPosToWorld(Vector2Int input)
+    public Vector2 arrayPosToWorld(Vector2Int input)
     {
         Vector2Int floorToBounds = new Vector2Int(IntFloor(boundsFloor.min.x, 2), IntFloor(boundsFloor.min.y, 2));
         return tilemapFloor.CellToWorld((Vector3Int)input * 2 + (Vector3Int)(floorToBounds));
     }
-    Vector2Int WorldToArrayPos(Vector2 input)
+    public Vector2Int WorldToArrayPos(Vector2 input)
     {
         Vector2Int floorToBounds = new Vector2Int(IntFloor(boundsFloor.min.x, 2), IntFloor(boundsFloor.min.y, 2));
         Vector3Int v = (tilemapFloor.WorldToCell(input) - (Vector3Int)floorToBounds);
@@ -95,6 +95,10 @@ public class WorldMap: MonoBehaviour
         //Debug.Log(new Vector2Int(v.x / 2, v.y / 2));
         return new Vector2Int(v.x / 2, v.y / 2);
 
+    }
+    public Vector2 arrayCellSize()
+    {
+        return 2 * tilemapFloor.cellSize;
     }
     floor mapTileToFloor(string s)
     {
