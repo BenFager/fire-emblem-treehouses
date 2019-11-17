@@ -65,14 +65,14 @@ public class WorldMap: MonoBehaviour
             ClearDebugTiles();
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2Int arrayMousePos = WorldToArrayPos(mousePos);
-            List<Vector2Int> path = pathfinding.AStar(mapTiles, lastMouseClick, arrayMousePos, 5, false);
+            List<Vector2Int> path = pathfinding.GetAIPath(mapTiles, lastMouseClick, arrayMousePos, 5);
 
             if (path != null)
             {
                 for (int i = 0; i < path.Count - 1; i++)
                 {
 
-                    //SetDebugLine(path[i], path[i + 1]);
+                    SetDebugLine(path[i], path[i + 1]);
                 }
             }
 

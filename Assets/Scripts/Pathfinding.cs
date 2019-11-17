@@ -60,7 +60,20 @@ public class Pathfinding : MonoBehaviour
         return neighbors;
     }
 
-    public List<Vector2Int> AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, bool pathMode)//True: return path, False, return all possibilities
+    public List<Vector2Int> Pathfind(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal)
+    {
+        return AStar(mapTiles, start, goal, -1, true);
+    }
+    public List<Vector2Int> GetPaths(MapTile[,] mapTiles, Vector2Int start, float maxCost)
+    {
+        return AStar(mapTiles, start, new Vector2Int(-1, -1), maxCost, false);
+    }
+    public List<Vector2Int> GetAIPath(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost)
+    {
+        return AStar(mapTiles, start, goal, maxCost, true);
+    }
+
+    private List<Vector2Int> AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, bool pathMode)//True: return path, False, return all possibilities
     {
         List<Vector2Int> nodesInRange = new List<Vector2Int>();
         aStarNodeArray = new AStarNode[mapTiles.GetLength(0), mapTiles.GetLength(1)];
@@ -92,13 +105,13 @@ public class Pathfinding : MonoBehaviour
         worldMap.SetDebugTile(start, Color.red);
         if (pathMode && (!mapTiles[start.x, start.y].GetPassable() || !mapTiles[goal.x, goal.y].GetPassable() ))
         {
-            return ReconstructPath(start, goal, aStarNodeArray);
+            return ReconstructPath(start, goal, aStarNodeArray, maxCost);
         }
         while (openSet.Count != 0)
         {
             AStarNode currentNode = openSet.Dequeue();
 
-            if (currentNode.gScore > maxCost)
+            if (currentNode.gScore > maxCost && !pathMode)
             {
                 return nodesInRange;
             }
@@ -106,7 +119,7 @@ public class Pathfinding : MonoBehaviour
             if (pathMode && currentNode.pos == goal)
             {
                 worldMap.SetDebugTile(goal, Color.green);
-                return ReconstructPath(start, goal, aStarNodeArray);
+                return ReconstructPath(start, goal, aStarNodeArray, maxCost);
             }
             currentNode.closed = true;
             worldMap.SetDebugTile(currentNode.pos, Color.blue);
@@ -140,7 +153,7 @@ public class Pathfinding : MonoBehaviour
         }
         if (pathMode)
         {
-            return ReconstructPath(start, goal, aStarNodeArray);
+            return ReconstructPath(start, goal, aStarNodeArray, maxCost);
         }
         else
         {
@@ -149,25 +162,32 @@ public class Pathfinding : MonoBehaviour
     }
 
 
-    private List<Vector2Int> ReconstructPath(Vector2Int start, Vector2Int goal, AStarNode[,] nodes)
+    private List<Vector2Int> ReconstructPath(Vector2Int start, Vector2Int goal, AStarNode[,] nodes, float maxCost)
     {
         List<Vector2Int> path = new List<Vector2Int>();
-        path.Add(goal);
         AStarNode current = nodes[goal.x, goal.y];
+
+        if ((maxCost > 0 && current.gScore <= maxCost) || (maxCost < 0))
+        {
+            path.Add(goal);
+        }
+        
         while (current.prevPos != new Vector2Int(-1, -1) && path.Count < nodes.GetLength(0) * nodes.GetLength(1))
         {
             current = nodes[current.prevPos.x, current.prevPos.y];
-            path.Add(current.pos);
+            if ((maxCost > 0 && current.gScore <= maxCost) || (maxCost < 0))
+            {
+                path.Add(current.pos);
+            }
+            
         }
         if(current.pos != start)
         {
             return null;
         }
-        else
-        {
-            path.Reverse();
-            return path;
-        }
+
+        path.Reverse();
+        return path;
     }
 }
 
