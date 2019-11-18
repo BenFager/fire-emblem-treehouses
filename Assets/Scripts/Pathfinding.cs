@@ -33,11 +33,13 @@ public class Pathfinding : MonoBehaviour
     {
         return (Mathf.Pow(Mathf.Pow((start.x - goal.x), 2) + Mathf.Pow(start.y - goal.y, 2), .5f));
     }
-    private float Cost(MapTile[,] mapTiles, Vector2Int start, Vector2Int neighbor)
+
+    private float Cost(MapTile[,] mapTiles, Vector2Int start, Vector2Int neighbor, MapUnit c)
     {
-        return (mapTiles[neighbor.x, neighbor.y].GetCost());
+        return (mapTiles[neighbor.x, neighbor.y].GetCost(c));
     }
-    private List<Vector2Int> GetNeighbors(AStarNode current, MapTile[,] mapTiles)
+
+    private List<Vector2Int> GetNeighbors(AStarNode current, MapTile[,] mapTiles, MapUnit c)
     {
         List<Vector2Int> neighbors = new List<Vector2Int>();
         foreach (Vector2Int v in neighborCells)
@@ -51,7 +53,7 @@ public class Pathfinding : MonoBehaviour
             {
                 continue;
             }
-            if(!mapTiles[newPos.x, newPos.y].GetPassable())
+            if(!mapTiles[newPos.x, newPos.y].GetPassable(c))
             {
                 continue;
             }
@@ -60,20 +62,20 @@ public class Pathfinding : MonoBehaviour
         return neighbors;
     }
 
-    public List<Vector2Int> Pathfind(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal)
+    public List<Vector2Int> Pathfind(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, MapUnit c)
     {
-        return AStar(mapTiles, start, goal, -1, true);
+        return AStar(mapTiles, start, goal, -1, true, c);
     }
-    public List<Vector2Int> GetPaths(MapTile[,] mapTiles, Vector2Int start, float maxCost)
+    public List<Vector2Int> GetPaths(MapTile[,] mapTiles, Vector2Int start, float maxCost, MapUnit c)
     {
-        return AStar(mapTiles, start, new Vector2Int(-1, -1), maxCost, false);
+        return AStar(mapTiles, start, new Vector2Int(-1, -1), maxCost, false, c);
     }
-    public List<Vector2Int> GetAIPath(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost)
+    public List<Vector2Int> GetAIPath(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, MapUnit c)
     {
-        return AStar(mapTiles, start, goal, maxCost, true);
+        return AStar(mapTiles, start, goal, maxCost, true, c);
     }
 
-    private List<Vector2Int> AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, bool pathMode)//True: return path, False, return all possibilities
+    private List<Vector2Int> AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, bool pathMode, MapUnit c)//True: return path, False, return all possibilities
     {
         List<Vector2Int> nodesInRange = new List<Vector2Int>();
         aStarNodeArray = new AStarNode[mapTiles.GetLength(0), mapTiles.GetLength(1)];
@@ -103,7 +105,7 @@ public class Pathfinding : MonoBehaviour
 
         //worldMap.SetDebugTile(start, Color.cyan);
         //worldMap.SetDebugTile(start, Color.red);
-        if (pathMode && (!mapTiles[start.x, start.y].GetPassable() || !mapTiles[goal.x, goal.y].GetPassable() ))
+        if (pathMode && (!mapTiles[start.x, start.y].GetPassable(c) || !mapTiles[goal.x, goal.y].GetPassable(c) ))
         {
             return ReconstructPath(start, goal, aStarNodeArray, maxCost);
         }
@@ -127,7 +129,7 @@ public class Pathfinding : MonoBehaviour
             {
                 nodesInRange.Add(currentNode.pos);
             }
-            foreach (Vector2Int v in GetNeighbors(currentNode, mapTiles))
+            foreach (Vector2Int v in GetNeighbors(currentNode, mapTiles, c))
             {
                 AStarNode currentNeighbor = aStarNodeArray[v.x, v.y];
                 if (currentNeighbor.closed)
@@ -140,7 +142,7 @@ public class Pathfinding : MonoBehaviour
                     //worldMap.SetDebugTile(currentNeighbor.pos, Color.magenta);
                     currentNeighbor.prevPos = currentNode.pos;
                 }
-                float tentative_gScore = currentNode.gScore + Cost(mapTiles, currentNode.pos, currentNeighbor.pos);
+                float tentative_gScore = currentNode.gScore + Cost(mapTiles, currentNode.pos, currentNeighbor.pos, c);
                 if (tentative_gScore < currentNeighbor.gScore)
                 {
                     // This path to neighbor is better than any previous one. Record it!

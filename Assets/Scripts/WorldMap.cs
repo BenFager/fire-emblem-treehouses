@@ -151,37 +151,32 @@ public class WorldMap: MonoBehaviour
             case 1:
             case 12:
             case 13:
-                return mapObject.BLCORNER;
             case 2:
             case 3:
             case 14:
             case 15:
-                return mapObject.BRCORNER;
             case 4:
             case 5:
             case 16:
             case 17:
-                return mapObject.HORIZWALL;
             case 6:
             case 7:
             case 18:
             case 19:
-                return mapObject.TLCORNER;
             case 8:
             case 9:
             case 20:
             case 21:
-                return mapObject.TRCORNER;
+            case 24:
+            case 25:
+            case 28:
+            case 29:
+                return mapObject.WALL;
             case 10:
             case 11:
             case 22:
             case 23:
                 return mapObject.HOUSE;
-            case 24:
-            case 25:
-            case 28:
-            case 29:
-                return mapObject.VERTWALL;
             default:
                 return mapObject.NULL;
         }
@@ -217,7 +212,7 @@ public enum floor
 }
 public enum mapObject
 {
-    HORIZWALL, VERTWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER, HOUSE, NULL
+    WALL, HOUSE, NULL, TALLWALL
 }
 
 public class MapTile
@@ -231,11 +226,23 @@ public class MapTile
     {
         return floorData.ToString() + " " + mapObjectData.ToString();
     }
-    public Boolean GetPassable()
+    public Boolean GetPassable(MapUnit c)
     {
-        if((mapObjectData != mapObject.HOUSE && mapObjectData != mapObject.NULL) || floorData == floor.NULL)
+        if(floorData == floor.NULL)
         {
             return false;
+        }
+        if((mapObjectData != mapObject.HOUSE && mapObjectData != mapObject.NULL))
+        {
+            
+            if(c.movementType == MovementType.FLIER)
+            {
+                return mapObjectData != mapObject.TALLWALL;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -244,23 +251,49 @@ public class MapTile
 
 
     }
-    public float GetCost()
+    public float GetCost(MapUnit c)
     {
-        switch (floorData)
+        if(c.movementType == MovementType.FLIER)
         {
-            case floor.FOREST:
-                return 2;
-            case floor.MOUNTAIN:
-                return 3;
-            case floor.PLAIN:
-                return 1;
-            case floor.FORT:
-                return 2;
-            case floor.FLOOR:
-                return 1;
-            default:
-                return 1;
+            return 1;
         }
+        if (c.movementType == MovementType.GROUNDED)
+        {
+            switch (floorData)
+            {
+                case floor.FOREST:
+                    return 2;
+                case floor.MOUNTAIN:
+                    return 3;
+                case floor.PLAIN:
+                    return 1;
+                case floor.FORT:
+                    return 2;
+                case floor.FLOOR:
+                    return 1;
+                default:
+                    return 1;
+            }
+        }
+        if(c.movementType == MovementType.MOUNTED)
+        {
+            switch (floorData)
+            {
+                case floor.FOREST:
+                    return 4;
+                case floor.MOUNTAIN:
+                    return 6;
+                case floor.PLAIN:
+                    return 1;
+                case floor.FORT:
+                    return 3;
+                case floor.FLOOR:
+                    return 1;
+                default:
+                    return 1;
+            }
+        }
+        return 1;
 
     }
 }
