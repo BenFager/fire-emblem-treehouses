@@ -25,6 +25,7 @@ public class Cursor : MonoBehaviour
         Vector2 p = transform.position;
         p = Vector2.MoveTowards(p, v, 20 * Time.deltaTime);
         transform.position = new Vector3(p.x, p.y, transform.position.z);
+
         HandleInput(KeyCode.UpArrow, ref Up, Vector2Int.up);
         HandleInput(KeyCode.DownArrow, ref Down, Vector2Int.down);
         HandleInput(KeyCode.RightArrow, ref Right, Vector2Int.right);
@@ -54,12 +55,23 @@ public class Cursor : MonoBehaviour
 
     IEnumerator RapidKeyPress(KeyCode k, Vector2Int v)
     {
-        pos += v;
+        movePos(pos, v);
         yield return new WaitForSeconds(0.25f);
         while (true)
         {
-            pos += v;
+            movePos(pos, v);
             yield return new WaitForSeconds(0.05f);
+        }
+    }
+    private void movePos(Vector2Int pos, Vector2Int v)
+    {
+        Vector2Int p = pos + v;
+        if (p.x >= 0 && p.y >= 0 && p.x < worldMap.mapTiles.GetLength(0) && p.y < worldMap.mapTiles.GetLength(1))
+        {
+            if (worldMap.mapTiles[p.x, p.y].floorData != Floor.NULL)
+            {
+                this.pos += v;
+            }
         }
     }
 }

@@ -6,12 +6,13 @@ using System;
 
 public class WorldMap: MonoBehaviour
 {
-    public int integer;
+
+    public BoundsInt mapBounds;
     Tilemap tilemapFloor;
     Tilemap tilemapObjects;
     BoundsInt boundsFloor;
     BoundsInt boundsObjects;
-    MapTile[,] mapTiles;
+    public MapTile[,] mapTiles;
     DebugTiles debugTiles;
     Vector2Int lastMouseClick;
     Pathfinding pathfinding;
@@ -47,6 +48,29 @@ public class WorldMap: MonoBehaviour
 
         debugTiles = transform.Find("TilemapDebug").GetComponent<DebugTiles>();
         pathfinding = GetComponent<Pathfinding>();
+        int xMin = mapTiles.GetLength(0);
+        int yMin = mapTiles.GetLength(0);
+        int xMax = -1;
+        int yMax = -1;
+        for(int x = 0; x < mapTiles.GetLength(0); x++)
+        {
+            for(int y = 0; y < mapTiles.GetLength(1); y++)
+            {
+                if(mapTiles[x,y].floorData != Floor.NULL)
+                {
+                    xMin = Math.Min(xMin, x);
+                    yMin = Math.Min(yMin, y);
+                    xMax = Math.Max(xMax, x);
+                    yMax = Math.Max(yMax, y);
+                }
+            }
+        }
+        xMax += 1;
+        yMax += 1;
+        mapBounds.xMax = xMax;
+        mapBounds.xMin = xMin;
+        mapBounds.yMax = yMax;
+        mapBounds.yMin = yMin;
 
     }
 
@@ -100,11 +124,11 @@ public class WorldMap: MonoBehaviour
     {
         return 2 * tilemapFloor.cellSize;
     }
-    floor mapTileToFloor(string s)
+    Floor mapTileToFloor(string s)
     {
         if(s == null)
         {
-            return floor.NULL;
+            return Floor.NULL;
         }
         int id = Int32.Parse(s.Replace("Floor_", ""));
         switch (id)
@@ -113,36 +137,36 @@ public class WorldMap: MonoBehaviour
             case 1:
             case 10:
             case 11:
-                return floor.FOREST;
+                return Floor.FOREST;
             case 2:
             case 3:
             case 12:
             case 13:
-                return floor.FORT;
+                return Floor.FORT;
             case 4:
             case 5:
             case 14:
             case 15:
-                return floor.PLAIN;
+                return Floor.PLAIN;
             case 6:
             case 7:
             case 16:
             case 17:
-                return floor.MOUNTAIN;
+                return Floor.MOUNTAIN;
             case 8:
             case 9:
             case 18:
             case 19:
-                return floor.FLOOR;
+                return Floor.FLOOR;
             default:
-                return floor.NULL;
+                return Floor.NULL;
         }
     }
-    mapObject mapTileToObject(string s)
+    MapObject mapTileToObject(string s)
     {
         if(s == null)
         {
-            return mapObject.NULL;
+            return MapObject.NULL;
         }
         int id = Int32.Parse(s.Replace("Objects_", ""));
         switch (id)
@@ -171,14 +195,14 @@ public class WorldMap: MonoBehaviour
             case 25:
             case 28:
             case 29:
-                return mapObject.WALL;
+                return MapObject.WALL;
             case 10:
             case 11:
             case 22:
             case 23:
-                return mapObject.HOUSE;
+                return MapObject.HOUSE;
             default:
-                return mapObject.NULL;
+                return MapObject.NULL;
         }
 
     }
@@ -206,11 +230,11 @@ public class WorldMap: MonoBehaviour
     }
 }
 
-public enum floor
+public enum Floor
 {
     FOREST, MOUNTAIN, PLAIN, FORT, FLOOR, NULL
 }
-public enum mapObject
+public enum MapObject
 {
     WALL, HOUSE, NULL, TALLWALL
 }
@@ -219,8 +243,8 @@ public class MapTile
 {
     
 
-    public floor floorData;
-    public mapObject mapObjectData;
+    public Floor floorData;
+    public MapObject mapObjectData;
 
     public override string ToString()
     {
@@ -228,16 +252,16 @@ public class MapTile
     }
     public Boolean GetPassable(MapUnit c)
     {
-        if(floorData == floor.NULL)
+        if(floorData == Floor.NULL)
         {
             return false;
         }
-        if((mapObjectData != mapObject.HOUSE && mapObjectData != mapObject.NULL))
+        if((mapObjectData != MapObject.HOUSE && mapObjectData != MapObject.NULL))
         {
             
             if(c.movementType == MovementType.FLIER)
             {
-                return mapObjectData != mapObject.TALLWALL;
+                return mapObjectData != MapObject.TALLWALL;
             }
             else
             {
@@ -261,15 +285,15 @@ public class MapTile
         {
             switch (floorData)
             {
-                case floor.FOREST:
+                case Floor.FOREST:
                     return 2;
-                case floor.MOUNTAIN:
+                case Floor.MOUNTAIN:
                     return 3;
-                case floor.PLAIN:
+                case Floor.PLAIN:
                     return 1;
-                case floor.FORT:
+                case Floor.FORT:
                     return 2;
-                case floor.FLOOR:
+                case Floor.FLOOR:
                     return 1;
                 default:
                     return 1;
@@ -279,15 +303,15 @@ public class MapTile
         {
             switch (floorData)
             {
-                case floor.FOREST:
+                case Floor.FOREST:
                     return 4;
-                case floor.MOUNTAIN:
+                case Floor.MOUNTAIN:
                     return 6;
-                case floor.PLAIN:
+                case Floor.PLAIN:
                     return 1;
-                case floor.FORT:
+                case Floor.FORT:
                     return 3;
-                case floor.FLOOR:
+                case Floor.FLOOR:
                     return 1;
                 default:
                     return 1;
