@@ -8,8 +8,7 @@ public class WorldMap: MonoBehaviour
 {
 
     public BoundsInt mapBounds;
-    Tilemap tilemapFloor;
-    Tilemap tilemapObjects;
+    Tilemap tilemapReal;
     BoundsInt boundsFloor;
     BoundsInt boundsObjects;
     public MapTile[,] mapTiles;
@@ -24,24 +23,20 @@ public class WorldMap: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tilemapFloor = transform.Find("TilemapFloor").gameObject.GetComponent<Tilemap>();
-        tilemapObjects = transform.Find("TilemapObjects").gameObject.GetComponent<Tilemap>();
-        
-        boundsFloor = tilemapFloor.cellBounds;
-        TileBase[] tilesFloor = tilemapFloor.GetTilesBlock(boundsFloor);
-        TileBase[] tilesObjects = tilemapObjects.GetTilesBlock(boundsFloor);
+        tilemapReal = transform.Find("TilemapReal").gameObject.GetComponent<Tilemap>();
+        tilemapReal.color = Color.clear;
+        boundsFloor = tilemapReal.cellBounds;
+        TileBase[] tilesWorld = tilemapReal.GetTilesBlock(boundsFloor);
         Debug.Log(boundsFloor);
 
-
-        tilemapObjects = transform.Find("TilemapObjects").gameObject.GetComponent<Tilemap>();
+        
         mapTiles = new MapTile[boundsFloor.size.x / 2, boundsFloor.size.y / 2];
         for(int x = 0; x < boundsFloor.size.x / 2; x++)
         {
             for(int y = 0; y < boundsFloor.size.y/2; y++)
             {
                 mapTiles[x, y] = new MapTile();
-                mapTiles[x, y].floorData = mapTileToFloor(tilesFloor[(y * boundsFloor.size.x + x) * 2]?.name);
-                mapTiles[x, y].mapObjectData = mapTileToObject(tilesObjects[(y * boundsFloor.size.x + x) * 2]?.name);
+                mapTiles[x, y].tile = parseMapTile(tilesWorld[(y * boundsFloor.size.x + x) * 2]?.name);
                 
             }
         }
@@ -56,7 +51,7 @@ public class WorldMap: MonoBehaviour
         {
             for(int y = 0; y < mapTiles.GetLength(1); y++)
             {
-                if(mapTiles[x,y].floorData != Floor.NULL)
+                if(mapTiles[x,y].tile != TileType.NULL)
                 {
                     xMin = Math.Min(xMin, x);
                     yMin = Math.Min(yMin, y);
@@ -108,12 +103,12 @@ public class WorldMap: MonoBehaviour
     public Vector2 arrayPosToWorld(Vector2Int input)
     {
         Vector2Int floorToBounds = new Vector2Int(IntFloor(boundsFloor.min.x, 2), IntFloor(boundsFloor.min.y, 2));
-        return tilemapFloor.CellToWorld((Vector3Int)input * 2 + (Vector3Int)(floorToBounds));
+        return tilemapReal.CellToWorld((Vector3Int)input * 2 + (Vector3Int)(floorToBounds));
     }
     public Vector2Int WorldToArrayPos(Vector2 input)
     {
         Vector2Int floorToBounds = new Vector2Int(IntFloor(boundsFloor.min.x, 2), IntFloor(boundsFloor.min.y, 2));
-        Vector3Int v = (tilemapFloor.WorldToCell(input) - (Vector3Int)floorToBounds);
+        Vector3Int v = (tilemapReal.WorldToCell(input) - (Vector3Int)floorToBounds);
         //Debug.Log(tilemapFloor.WorldToCell(input));
         //Debug.Log(v);
         //Debug.Log(new Vector2Int(v.x / 2, v.y / 2));
@@ -122,90 +117,36 @@ public class WorldMap: MonoBehaviour
     }
     public Vector2 arrayCellSize()
     {
-        return 2 * tilemapFloor.cellSize;
+        return 2 * tilemapReal.cellSize;
     }
-    Floor mapTileToFloor(string s)
+    TileType parseMapTile(string s)
     {
         if(s == null)
         {
-            return Floor.NULL;
+            return TileType.NULL;
         }
-        int id = Int32.Parse(s.Replace("Floor_", ""));
+        int id = Int32.Parse(s.Replace("coloredTiles_", ""));
         switch (id)
         {
             case 0:
+                return TileType.PLAIN;
             case 1:
-            case 10:
-            case 11:
-                return Floor.FOREST;
+                return TileType.FOREST;
             case 2:
+                return TileType.MOUNTAIN;
             case 3:
-            case 12:
-            case 13:
-                return Floor.FORT;
+                return TileType.FORT;
             case 4:
+                return TileType.WALL;
             case 5:
-            case 14:
-            case 15:
-                return Floor.PLAIN;
+                return TileType.IMPASSABLEWALL;
             case 6:
-            case 7:
-            case 16:
-            case 17:
-                return Floor.MOUNTAIN;
-            case 8:
-            case 9:
-            case 18:
-            case 19:
-                return Floor.FLOOR;
+                return TileType.PEAK;
             default:
-                return Floor.NULL;
+                return TileType.NULL;
         }
     }
-    MapObject mapTileToObject(string s)
-    {
-        if(s == null)
-        {
-            return MapObject.NULL;
-        }
-        int id = Int32.Parse(s.Replace("Objects_", ""));
-        switch (id)
-        {
-            case 0:
-            case 1:
-            case 12:
-            case 13:
-            case 2:
-            case 3:
-            case 14:
-            case 15:
-            case 4:
-            case 5:
-            case 16:
-            case 17:
-            case 6:
-            case 7:
-            case 18:
-            case 19:
-            case 8:
-            case 9:
-            case 20:
-            case 21:
-            case 24:
-            case 25:
-            case 28:
-            case 29:
-                return MapObject.WALL;
-            case 10:
-            case 11:
-            case 22:
-            case 23:
-                return MapObject.HOUSE;
-            default:
-                return MapObject.NULL;
-        }
 
-    }
     public static int IntFloor(int value, int multiple)
         {
             multiple = Math.Max(1, Math.Abs(multiple));
@@ -222,7 +163,7 @@ public class WorldMap: MonoBehaviour
     }
     public void SetDebugLine(Vector2Int arrayPosA, Vector2Int arrayPosB)
     {
-        debugTiles.SetLine(arrayPosToWorld(arrayPosA) + (Vector2)tilemapFloor.cellSize, arrayPosToWorld(arrayPosB) + (Vector2)tilemapFloor.cellSize);
+        debugTiles.SetLine(arrayPosToWorld(arrayPosA) + (Vector2)tilemapReal.cellSize, arrayPosToWorld(arrayPosB) + (Vector2)tilemapReal.cellSize);
     }
     public void ClearDebugLines()
     {
@@ -230,48 +171,37 @@ public class WorldMap: MonoBehaviour
     }
 }
 
-public enum Floor
+public enum TileType
 {
-    FOREST, MOUNTAIN, PLAIN, FORT, FLOOR, NULL
+    FOREST, MOUNTAIN, PLAIN, FORT, IMPASSABLEWALL, NULL, WALL, PEAK
 }
-public enum MapObject
-{
-    WALL, HOUSE, NULL, TALLWALL
-}
+
 
 public class MapTile
 {
     
 
-    public Floor floorData;
-    public MapObject mapObjectData;
+    public TileType tile;
+    public GameObject modifier;
 
     public override string ToString()
     {
-        return floorData.ToString() + " " + mapObjectData.ToString();
+        return tile.ToString();
     }
     public Boolean GetPassable(MapUnit c)
     {
-        if(floorData == Floor.NULL)
+        if(tile == TileType.NULL)
         {
             return false;
         }
-        if((mapObjectData != MapObject.HOUSE && mapObjectData != MapObject.NULL))
+ 
+        if(c.movementType == MovementType.FLIER)
         {
-            
-            if(c.movementType == MovementType.FLIER)
-            {
-                return mapObjectData != MapObject.TALLWALL;
-            }
-            else
-            {
-                return false;
-            }
+            return tile != TileType.IMPASSABLEWALL;
         }
-        else
-        {
-            return true;
-        }
+        return tile != TileType.IMPASSABLEWALL && tile != TileType.WALL && tile != TileType.PEAK;
+
+
 
 
     }
@@ -283,36 +213,33 @@ public class MapTile
         }
         if (c.movementType == MovementType.GROUNDED)
         {
-            switch (floorData)
+            switch (tile)
             {
-                case Floor.FOREST:
+                case TileType.FOREST:
                     return 2;
-                case Floor.MOUNTAIN:
+                case TileType.MOUNTAIN:
                     return 3;
-                case Floor.PLAIN:
+                case TileType.PLAIN:
                     return 1;
-                case Floor.FORT:
+                case TileType.FORT:
                     return 2;
-                case Floor.FLOOR:
-                    return 1;
+                
                 default:
                     return 1;
             }
         }
         if(c.movementType == MovementType.MOUNTED)
         {
-            switch (floorData)
+            switch (tile)
             {
-                case Floor.FOREST:
+                case TileType.FOREST:
                     return 4;
-                case Floor.MOUNTAIN:
+                case TileType.MOUNTAIN:
                     return 6;
-                case Floor.PLAIN:
+                case TileType.PLAIN:
                     return 1;
-                case Floor.FORT:
+                case TileType.FORT:
                     return 3;
-                case Floor.FLOOR:
-                    return 1;
                 default:
                     return 1;
             }

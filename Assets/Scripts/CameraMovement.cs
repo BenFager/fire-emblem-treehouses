@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour
         Rect camRect = CameraRect();
         Vector2 v = worldMap.arrayPosToWorld(cameraPos) + 0.5f * worldMap.arrayCellSize();
         Vector2 p = transform.position;
-        p = Vector2.MoveTowards(p, v, 20 * Time.deltaTime);
+        p = Vector2.MoveTowards(p, v, 75 * Time.deltaTime);
         Vector2 min = worldMap.arrayPosToWorld((Vector2Int)worldMap.mapBounds.min) + 0.5f * camRect.size;
         Vector2 max = worldMap.arrayPosToWorld((Vector2Int)worldMap.mapBounds.max) - 0.5f * camRect.size;
         p = new Vector2(Mathf.Clamp(p.x, min.x, max.x), Mathf.Clamp(p.y, min.y, max.y));

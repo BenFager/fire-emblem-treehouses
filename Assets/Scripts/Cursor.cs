@@ -68,7 +68,7 @@ public class Cursor : MonoBehaviour
         Vector2Int p = pos + v;
         if (p.x >= 0 && p.y >= 0 && p.x < worldMap.mapTiles.GetLength(0) && p.y < worldMap.mapTiles.GetLength(1))
         {
-            if (worldMap.mapTiles[p.x, p.y].floorData != Floor.NULL)
+            if (worldMap.mapTiles[p.x, p.y].tile != TileType.NULL)
             {
                 this.pos += v;
             }
