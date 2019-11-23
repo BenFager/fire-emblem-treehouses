@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
                         //Checks to see if the cursor is placed on top of a player, if it is, then it sets selectedUnit
                         foreach (MapUnit unit in units)
                         {
-                            if (cursor.pos == unit.loc)
+                            if (cursor.pos == unit.loc && unit.hasTurn)
                             {
                                 selectedUnit = unit;
                                 state = State.SELECTPOSITION;
