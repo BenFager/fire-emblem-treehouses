@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WorldMap
   - Cursor
+  - CombatController
   layers:
   - Default
   - TransparentFX

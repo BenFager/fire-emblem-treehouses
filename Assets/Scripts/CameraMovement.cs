@@ -5,7 +5,7 @@ using System;
 
 public class CameraMovement : MonoBehaviour
 {
-    Vector2Int cameraPos;
+    public Vector2Int cameraPos;
     WorldMap worldMap;
     Cursor cursor;
     // Start is called before the first frame update

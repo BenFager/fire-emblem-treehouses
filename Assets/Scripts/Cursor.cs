@@ -10,26 +10,32 @@ public class Cursor : MonoBehaviour
     public Coroutine Left;
     public Coroutine Right;
     public Vector2Int pos;
+    public bool isEnabled = true;
     WorldMap worldMap;
+    SpriteRenderer renderer;
     // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
         worldMap = GameObject.FindGameObjectWithTag("WorldMap").GetComponent<WorldMap>();
         pos = new Vector2Int(15, 5);
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 v = worldMap.arrayPosToWorld(pos) + 0.5f * worldMap.arrayCellSize();
-        Vector2 p = transform.position;
-        p = Vector2.MoveTowards(p, v, 20 * Time.deltaTime);
-        transform.position = new Vector3(p.x, p.y, transform.position.z);
+        if (isEnabled)
+        {
+            Vector2 v = worldMap.arrayPosToWorld(pos) + 0.5f * worldMap.arrayCellSize();
+            Vector2 p = transform.position;
+            p = Vector2.MoveTowards(p, v, 20 * Time.deltaTime);
+            transform.position = new Vector3(p.x, p.y, transform.position.z);
 
-        HandleInput(KeyCode.UpArrow, ref Up, Vector2Int.up);
-        HandleInput(KeyCode.DownArrow, ref Down, Vector2Int.down);
-        HandleInput(KeyCode.RightArrow, ref Right, Vector2Int.right);
-        HandleInput(KeyCode.LeftArrow, ref Left, Vector2Int.left);
+            HandleInput(KeyCode.UpArrow, ref Up, Vector2Int.up);
+            HandleInput(KeyCode.DownArrow, ref Down, Vector2Int.down);
+            HandleInput(KeyCode.RightArrow, ref Right, Vector2Int.right);
+            HandleInput(KeyCode.LeftArrow, ref Left, Vector2Int.left);
+        }
     }
 
     void HandleInput(KeyCode k, ref Coroutine c, Vector2Int v)
@@ -73,5 +79,16 @@ public class Cursor : MonoBehaviour
                 this.pos += v;
             }
         }
+    }
+
+    public void Enable()
+    {
+        isEnabled = true;
+        renderer.color = Color.white;
+    }
+    public void Disable()
+    {
+        isEnabled = false;
+        renderer.color = Color.clear;
     }
 }

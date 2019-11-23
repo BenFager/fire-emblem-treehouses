@@ -8,11 +8,11 @@ public class WorldMap: MonoBehaviour
 {
 
     public BoundsInt mapBounds;
-    Tilemap tilemapReal;
+    public Tilemap tilemapReal;
     BoundsInt boundsFloor;
     BoundsInt boundsObjects;
     public MapTile[,] mapTiles;
-    DebugTiles debugTiles;
+    public DebugTiles debugTiles;
     Vector2Int lastMouseClick;
     Pathfinding pathfinding;
 
@@ -21,7 +21,7 @@ public class WorldMap: MonoBehaviour
         FOREST, MOUNTAIN, PLAIN, FORT, NULL
     }
     // Start is called before the first frame update
-    void Start()
+    public void /*Fire emblem */Initialize/*ning*/()
     {
         tilemapReal = transform.Find("TilemapReal").gameObject.GetComponent<Tilemap>();
         tilemapReal.color = Color.clear;
