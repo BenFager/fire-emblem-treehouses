@@ -12,7 +12,7 @@ public class DialogRunner : MonoBehaviour
     }
 
     // single source of truth for dialog flags
-    public Dictionary<string, bool> flags = new Dictionary<string, bool>();
+    public Dictionary<string, bool> Flags = new Dictionary<string, bool>();
     // currently running dialog
     Coroutine dialog;
 
@@ -71,7 +71,7 @@ public class DialogRunner : MonoBehaviour
     // dialog coroutine
     IEnumerator RunDialog(IDialogUI ui, string path)
     {
-        DialogFile f = new DialogFile(path, flags);
+        DialogFile f = new DialogFile(path, Flags);
         // wait a tick so that we update ourselves as active
         yield return null;
         // run dialog

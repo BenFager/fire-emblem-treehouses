@@ -21,6 +21,9 @@ public class DialogUI : MonoBehaviour, IDialogUI
     // text scroll animation
     Coroutine textScroll;
 
+    // dialog choice menu
+    DialogChoiceMenu menu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class DialogUI : MonoBehaviour, IDialogUI
         imagePanel = dialogCanvas.Find("ImagePanel").GetComponent<DialogImagePanel>();
         namePanel = dialogCanvas.Find("NamePanel").GetComponent<DialogTextPanel>();
         textPanel = dialogCanvas.Find("TextPanel").GetComponent<DialogTextPanel>();
+        menu = GameObject.FindGameObjectWithTag("DialogChoiceMenu").GetComponent<DialogChoiceMenu>();
         // get dialog sprites
         foreach (DialogSprite s in spriteList)
         {
@@ -40,7 +44,7 @@ public class DialogUI : MonoBehaviour, IDialogUI
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && textScroll == null)
+        if (Input.GetMouseButtonDown(0) && textScroll == null && !menu.Active)
         {
             DialogRunner.RequestAdvance();
         }

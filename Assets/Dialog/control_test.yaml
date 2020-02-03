@@ -17,6 +17,21 @@
     image: default
 - C: ʎʞooooooooods
 
+- event:
+    id: test_menu
+- if:
+    id: test_menu_choice_A
+    block:
+    - You clicked choice A.
+- if:
+    id: test_menu_choice_B
+    block:
+    - You clicked choice B.
+- if:
+    id: test_menu_choice_C
+    block:
+    - You clicked choice C.
+
 - These are some bare words.
 
 - jump: label2
