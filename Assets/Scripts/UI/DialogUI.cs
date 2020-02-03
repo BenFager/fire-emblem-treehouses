@@ -18,6 +18,9 @@ public class DialogUI : MonoBehaviour, IDialogUI
     public List<DialogSprite> spriteList = new List<DialogSprite>();
     Dictionary<string, Sprite> sprites = new Dictionary<string, Sprite>();
 
+    // text scroll animation
+    Coroutine textScroll;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +40,7 @@ public class DialogUI : MonoBehaviour, IDialogUI
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && textScroll == null)
         {
             DialogRunner.RequestAdvance();
         }
@@ -45,6 +48,7 @@ public class DialogUI : MonoBehaviour, IDialogUI
 
     public void DisplayText(string name, string text)
     {
+        // set name panel
         if (name != null)
         {
             namePanel.Show(name);
@@ -53,7 +57,37 @@ public class DialogUI : MonoBehaviour, IDialogUI
         {
             namePanel.Hide();
         }
-        textPanel.Show(text);
+        // stop old text scroll animation if it is still running
+        if (textScroll != null)
+        {
+            StopCoroutine(textScroll);
+            textScroll = null;
+        }
+        // use speed as Mathf.Infinity to turn off scrolling
+        textScroll = StartCoroutine(ScrollText(text, 75f));
+    }
+    // speed is in characters/second
+    IEnumerator ScrollText(string text, float speed)
+    {
+        float timer = Time.deltaTime;
+        int len = 0;
+        // loop until we reach end of text
+        do
+        {
+            timer += Time.deltaTime;
+            len = (int)Math.Min(text.Length, speed * timer);
+            yield return null;
+            // clicking forwards text scroll to end
+            if (Input.GetMouseButtonDown(0))
+            {
+                len = text.Length;
+                yield return null;
+            }
+            textPanel.Show(text.Substring(0, len));
+        }
+        while (len < text.Length);
+        // finish
+        textScroll = null;
     }
 
     public void ShowCharacter(string id, string image, DialogImageOptions options)
@@ -72,6 +106,11 @@ public class DialogUI : MonoBehaviour, IDialogUI
     {
         namePanel.Hide();
         textPanel.Hide();
+        if (textScroll != null)
+        {
+            StopCoroutine(textScroll);
+            textScroll = null;
+        }
         imagePanel.Hide();
     }
 }
