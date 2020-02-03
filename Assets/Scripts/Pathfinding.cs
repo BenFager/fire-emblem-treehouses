@@ -62,22 +62,27 @@ public class Pathfinding : MonoBehaviour
         return neighbors;
     }
 
-    public List<Vector2Int> Pathfind(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, MapUnit c)
+    public List<PathNode> Pathfind(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, MapUnit c)
     {
         return AStar(mapTiles, start, goal, -1, true, c);
     }
-    public List<Vector2Int> GetPaths(MapTile[,] mapTiles, Vector2Int start, float maxCost, MapUnit c)
+    public List<PathNode> GetPaths(MapTile[,] mapTiles, Vector2Int start, float maxCost, MapUnit c)
     {
         return AStar(mapTiles, start, new Vector2Int(-1, -1), maxCost, false, c);
     }
-    public List<Vector2Int> GetAIPath(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, MapUnit c)
+    public List<PathNode> GetAIPath(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, MapUnit c)
     {
         return AStar(mapTiles, start, goal, maxCost, true, c);
     }
+    //public int getCostBetweenPoints(Vector2Int pointOne, Vector2Int pointTwo)
+    //{
 
-    private List<Vector2Int> AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, bool pathMode, MapUnit c)//True: return path, False, return all possibilities
+    //}
+
+
+    private List<PathNode> AStar(MapTile[,] mapTiles, Vector2Int start, Vector2Int goal, float maxCost, bool pathMode, MapUnit c)//True: return path, False, return all possibilities
     {
-        List<Vector2Int> nodesInRange = new List<Vector2Int>();
+        List<PathNode> nodesInRange = new List<PathNode>();
         aStarNodeArray = new AStarNode[mapTiles.GetLength(0), mapTiles.GetLength(1)];
         for(int x = 0; x < mapTiles.GetLength(0); x++)
         {
@@ -127,7 +132,7 @@ public class Pathfinding : MonoBehaviour
            // worldMap.SetDebugTile(currentNode.pos, Color.blue);
             if(!pathMode)
             {
-                nodesInRange.Add(currentNode.pos);
+                nodesInRange.Add(new PathNode(currentNode.pos, currentNode.gScore));
             }
             foreach (Vector2Int v in GetNeighbors(currentNode, mapTiles, c))
             {
@@ -164,14 +169,14 @@ public class Pathfinding : MonoBehaviour
     }
 
 
-    private List<Vector2Int> ReconstructPath(Vector2Int start, Vector2Int goal, AStarNode[,] nodes, float maxCost)
+    private List<PathNode> ReconstructPath(Vector2Int start, Vector2Int goal, AStarNode[,] nodes, float maxCost)
     {
-        List<Vector2Int> path = new List<Vector2Int>();
+        List<PathNode> path = new List<PathNode>();
         AStarNode current = nodes[goal.x, goal.y];
 
         if ((maxCost > 0 && current.gScore <= maxCost) || (maxCost < 0))
         {
-            path.Add(goal);
+            path.Add(new PathNode(goal, current.gScore));
         }
         
         while (current.prevPos != new Vector2Int(-1, -1) && path.Count < nodes.GetLength(0) * nodes.GetLength(1))
@@ -179,7 +184,7 @@ public class Pathfinding : MonoBehaviour
             current = nodes[current.prevPos.x, current.prevPos.y];
             if ((maxCost > 0 && current.gScore <= maxCost) || (maxCost < 0))
             {
-                path.Add(current.pos);
+                path.Add(new PathNode(current.pos, current.gScore));
             }
             
         }
@@ -191,7 +196,9 @@ public class Pathfinding : MonoBehaviour
         path.Reverse();
         return path;
     }
+    
 }
+
 
 
 class AStarNode : FastPriorityQueueNode
@@ -205,5 +212,16 @@ class AStarNode : FastPriorityQueueNode
     public AStarNode(Vector2Int pos)
     {
         this.pos = pos;
+    }
+}
+
+public struct PathNode
+{
+    public Vector2Int pos;
+    public float cost;
+    public PathNode(Vector2Int pos, float cost)
+    {
+        this.pos = pos;
+        this.cost = cost;
     }
 }

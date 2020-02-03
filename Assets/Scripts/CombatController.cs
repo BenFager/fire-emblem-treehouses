@@ -5,7 +5,7 @@ using UnityEngine;
 //Pick a godObject and pray
 public class CombatController : MonoBehaviour
 {
-    public TurnType turnType;
+    public UnitSide turnType;
     public List<MapUnit> enemyUnits;
     public List<MapUnit> allyUnits;
     public List<MapUnit> playerUnits;
@@ -14,7 +14,7 @@ public class CombatController : MonoBehaviour
     // Start is called before the first frame update
     public void Initialize()
     {
-        turnType = TurnType.PLAYER;
+        turnType = UnitSide.PLAYER;
         playerController = GetComponent<PlayerController>();
         
         
@@ -35,7 +35,7 @@ public class CombatController : MonoBehaviour
         {
             switch (turnType)
             {
-                case TurnType.PLAYER:
+                case UnitSide.PLAYER:
                     Debug.Log("Player phase!");
                     foreach (MapUnit c in playerUnits)
                     {
@@ -47,14 +47,14 @@ public class CombatController : MonoBehaviour
                     {
                         yield return null;
                     }
-                    turnType = TurnType.ENEMY;
+                    turnType = UnitSide.ENEMY;
                     playerController.Disable();
                     Debug.Log("player phase done 2");
                     //close player ui
                     break;
-                case TurnType.ENEMY:
+                case UnitSide.ENEMY:
                     Debug.Log("Enemy Turn!");//Todo: replace with ui
-                    foreach (MapUnit c in enemyUnits)
+                    foreach (MapUnit c in enemyUnits)   
                     {
                         c.EnableAction();
                         //Todo: enable enemy ai controller UI
@@ -64,9 +64,9 @@ public class CombatController : MonoBehaviour
                         yield return null;
                     }
                     //Notify enemy ai controller that it's done
-                    turnType = TurnType.ALLY;
+                    turnType = UnitSide.ALLY;
                     break;
-                case TurnType.ALLY:
+                case UnitSide.ALLY:
 
                     Debug.Log("Ally Turn!");//Todo: replace with ui
                     foreach (MapUnit c in allyUnits)
@@ -79,7 +79,7 @@ public class CombatController : MonoBehaviour
                         yield return null;
                     }
                     //Notify ally ai controller that it's done
-                    turnType = TurnType.PLAYER;
+                    turnType = UnitSide.PLAYER;
                     break;
 
             }
@@ -99,8 +99,32 @@ public class CombatController : MonoBehaviour
         }
         return (!tempIsFinished);
     }
+
+    CombatController GetInstance()
+    {
+        return GameObject.FindGameObjectWithTag("CombatController").GetComponent<CombatController>();
+    }
+
+    public UnitSide getSide(MapUnit m)
+    {
+        foreach(MapUnit enemyUnit in enemyUnits)
+        {
+            if(m == enemyUnit)
+            {
+                return UnitSide.ENEMY;
+            }
+        }
+        foreach(MapUnit allyUnit in allyUnits)
+        {
+            if(m == allyUnit)
+            {
+                return UnitSide.ALLY;
+            }
+        }
+        return UnitSide.PLAYER;
+    }
 }
-public enum TurnType
+public enum UnitSide
 {
     PLAYER, ENEMY, ALLY
 }

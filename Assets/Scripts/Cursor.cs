@@ -86,7 +86,7 @@ public class Cursor : MonoBehaviour
         isEnabled = true;
         renderer.color = Color.white;
     }
-    public void Disable()
+    public void DisableCursor()
     {
         isEnabled = false;
         renderer.color = Color.clear;

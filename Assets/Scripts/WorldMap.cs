@@ -169,6 +169,11 @@ public class WorldMap: MonoBehaviour
     {
         debugTiles.ClearLines();
     }
+
+    public static WorldMap GetInstance()
+    {
+        return GameObject.FindGameObjectWithTag("WorldMap").GetComponent<WorldMap>();
+    }
 }
 
 public enum TileType
@@ -247,5 +252,6 @@ public class MapTile
         return 1;
 
     }
+
 }
 
