@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UITextPanel : MonoBehaviour, IUIPanel
+public class UIScrollbar : MonoBehaviour, IUIPanel
 {
     Animator anim;
-    Text text;
+    Scrollbar scrollbar;
     void Awake()
     {
         anim = GetComponent<Animator>();
-        text = transform.Find("Position").Find("Text").GetComponent<Text>();
+        scrollbar = transform.Find("Position").GetComponent<Scrollbar>();
     }
 
     // Start is called before the first frame update
@@ -29,10 +29,9 @@ public class UITextPanel : MonoBehaviour, IUIPanel
     {
         anim.SetBool("Active", true);
     }
-    public void Show(string text)
+    public void Set(float value)
     {
-        this.text.text = text;
-        Show();
+        scrollbar.value = value;
     }
     public void Hide()
     {

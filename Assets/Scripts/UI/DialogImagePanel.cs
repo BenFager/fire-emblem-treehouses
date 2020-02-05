@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogImagePanel : MonoBehaviour
+public class DialogImagePanel : MonoBehaviour, IUIPanel
 {
     Animator anim;
     Image image;
@@ -25,10 +25,14 @@ public class DialogImagePanel : MonoBehaviour
         
     }
 
-    public void Show(Sprite spr)
+    public void Show()
     {
         anim.SetBool("Active", true);
+    }
+    public void Show(Sprite spr)
+    {
         image.sprite = spr;
+        Show();
     }
     public void Hide()
     {

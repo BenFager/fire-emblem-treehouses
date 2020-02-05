@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryItemPanel : MonoBehaviour
+public class InventoryItemPanel : MonoBehaviour, IUIPanel
 {
     Animator anim;
     Image image;
     Text text;
     Text info;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();
         text = transform.Find("Position").Find("Text").GetComponent<Text>();
         info = transform.Find("Position").Find("TextItemInfo").GetComponent<Text>();
         image = transform.Find("Position").Find("Image").GetComponent<Image>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame

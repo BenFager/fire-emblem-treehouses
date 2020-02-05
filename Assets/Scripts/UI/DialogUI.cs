@@ -27,7 +27,7 @@ public class DialogUI : MonoBehaviour, IDialogUI
     // Start is called before the first frame update
     void Start()
     {
-        Transform dialogCanvas = transform.Find("DialogCanvas");
+        Transform dialogCanvas = transform.Find("Canvas");
         imagePanel = dialogCanvas.Find("ImagePanel").GetComponent<DialogImagePanel>();
         namePanel = dialogCanvas.Find("NamePanel").GetComponent<UITextPanel>();
         textPanel = dialogCanvas.Find("TextPanel").GetComponent<UITextPanel>();

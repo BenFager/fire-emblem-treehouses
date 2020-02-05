@@ -1,22 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class InventoryItemListPanel : MonoBehaviour
+public class InventoryItemListPanel : MonoBehaviour, IUIPanel
 {
     public List<InventoryItemPanel> itemPanels = new List<InventoryItemPanel>();
-    public int maxPanels = 5;
-    public GameObject itemPanelPrefab;
+    public int maxPanels = 20;
+    public float scrollPanelSize = 1015;
 
     List<InventoryItem> items = new List<InventoryItem>();
 
     // ui elements
     UITextPanel basePanel;
+    UIScrollbar scrollbar;
+
+    RectTransform scrollPanel;
+
+    void Awake()
+    {
+        basePanel = GetComponent<UITextPanel>();
+        scrollbar = transform.Find("Scrollbar").GetComponent<UIScrollbar>();
+
+        scrollPanel = transform.Find("ScrollBox").Find("ScrollBoxContent").GetComponent<RectTransform>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        basePanel = GetComponent<UITextPanel>();
+
     }
 
     // Update is called once per frame
@@ -29,13 +41,27 @@ public class InventoryItemListPanel : MonoBehaviour
     // Use before Show()
     public void SetItems(List<InventoryItem> items)
     {
-        if (items.Count > itemPanels.Count)
+        if (items.Count > maxPanels)
         {
             throw new DialogError($"Cannot display list of {items.Count} items when this menu only supports {maxPanels} items.");
         }
         this.items = items;
         // add panels as necessary
-        
+        for (int i = itemPanels.Count - 2; i < items.Count; i++)
+        {
+            if (i < 0)
+            {
+                throw new DialogError($"Cannot add panels with only 1 element. At least 2 panels must be in the itemPanels list.");
+            }
+            GameObject nextPanel = Instantiate(itemPanels[i + 1].gameObject, itemPanels[i + 1].transform.parent);
+            nextPanel.name = $"ItemPanel{i + 1}";
+            itemPanels.Add(nextPanel.GetComponent<InventoryItemPanel>());
+            RectTransform nextPanelRect = nextPanel.GetComponent<RectTransform>();
+            RectTransform lastPanelRect = itemPanels[i + 1].GetComponent<RectTransform>();
+            RectTransform prevPanelRect = itemPanels[i].GetComponent<RectTransform>();
+            // position of next panel is lastPanel.position + (lastPanel.position - prevPanel.position)
+            nextPanelRect.anchoredPosition = (2 * lastPanelRect.anchoredPosition) - prevPanelRect.anchoredPosition;
+        }
         // update items
         for (int i = 0; i < items.Count; i++)
         {
@@ -50,6 +76,19 @@ public class InventoryItemListPanel : MonoBehaviour
         {
             itemPanels[i].Show();
         }
+        // check if we need to display scrollbar
+        scrollPanel.sizeDelta = Vector2.zero;
+        if (itemPanels.Count > 0)
+        {
+            RectTransform last = itemPanels.Last().GetComponent<RectTransform>();
+            float vertSize = Mathf.Abs(last.anchoredPosition.y + last.sizeDelta.y);
+            if (vertSize > scrollPanelSize)
+            {
+                scrollPanel.sizeDelta = new Vector2(scrollPanel.sizeDelta.x, vertSize - scrollPanelSize);
+                scrollbar.Set(1);
+                scrollbar.Show();
+            }
+        }
     }
 
     public void Hide()
@@ -59,5 +98,6 @@ public class InventoryItemListPanel : MonoBehaviour
         {
             Hide();
         }
+        scrollbar.Hide();
     }
 }

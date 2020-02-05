@@ -4,6 +4,8 @@ using UnityEngine;
 [Serializable]
 public class InventoryItem
 {
+    public string id;
+
     public string name;
 
     public int uses;

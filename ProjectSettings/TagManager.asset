@@ -10,6 +10,7 @@ TagManager:
   - DialogEvents
   - DialogRunner
   - DialogChoiceMenu
+  - InventoryItemList
   layers:
   - Default
   - TransparentFX

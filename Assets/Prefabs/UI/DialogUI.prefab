@@ -197,6 +197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3944417711934583210}
+  - component: {fileID: 4229235179818251899}
   m_Layer: 0
   m_Name: DialogUI
   m_TagString: Untagged
@@ -222,6 +223,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4229235179818251899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944417711934583213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357a8fc276d93e449b6f01b2fa56e698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteList:
+  - name: default
+    sprite: {fileID: 21300000, guid: dc226d5f71389c446b6fe78161bc793d, type: 3}
 --- !u!1 &3944417712078872280
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DialogChoiceMenu : MonoBehaviour
+public class DialogChoiceMenu : MonoBehaviour, IUIPanel
 {
     [Serializable]
     public class Choice

@@ -203,28 +203,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &749169035 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3944417711934583213, guid: 98cd0b6d3c4051449b33251f9b4bb9c6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1674827103}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &749169036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749169035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 357a8fc276d93e449b6f01b2fa56e698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteList:
-  - name: default
-    sprite: {fileID: 21300000, guid: dc226d5f71389c446b6fe78161bc793d, type: 3}
---- !u!1001 &1674827103
+--- !u!1001 &1101295608
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -290,11 +269,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944417711545085704, guid: 98cd0b6d3c4051449b33251f9b4bb9c6,
-        type: 3}
-      propertyPath: m_Name
-      value: DialogCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 3944417711545085716, guid: 98cd0b6d3c4051449b33251f9b4bb9c6,
         type: 3}
