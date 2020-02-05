@@ -18,7 +18,7 @@ public class DialogChoiceMenu : MonoBehaviour
         }
     }
     public List<Choice> choices = new List<Choice>();
-    public List<DialogTextPanel> buttons = new List<DialogTextPanel>();
+    public List<UITextPanel> buttons = new List<UITextPanel>();
 
     // menu is in any state of open. Dialog should block advancement while this is true.
     public bool Active { get; private set; }
@@ -44,6 +44,10 @@ public class DialogChoiceMenu : MonoBehaviour
     // used to set menu contents
     public void SetChoices(List<Choice> choices)
     {
+        if (choices.Count > buttons.Count)
+        {
+            throw new DialogError($"Cannot display list of {choices.Count} choices when this menu only supports {buttons.Count} options.");
+        }
         this.choices = choices;
     }
 
@@ -75,7 +79,7 @@ public class DialogChoiceMenu : MonoBehaviour
     public void Hide()
     {
         ready = false;
-        foreach (DialogTextPanel button in buttons)
+        foreach (UITextPanel button in buttons)
         {
             button.Hide();
         }

@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -193,8 +193,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -40, y: 0}
-  m_SizeDelta: {x: -170, y: -50}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -90, y: -50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2056726997357627942
 CanvasRenderer:
@@ -246,7 +246,7 @@ PrefabInstance:
     - target: {fileID: 3037110770532793269, guid: 118045de7c4459b4d86c656b205f992f,
         type: 3}
       propertyPath: m_Name
-      value: NamePanel
+      value: BasePanel
       objectReference: {fileID: 0}
     - target: {fileID: 1050824422204286688, guid: 118045de7c4459b4d86c656b205f992f,
         type: 3}

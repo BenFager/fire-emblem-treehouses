@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogTextPanel : MonoBehaviour
+public class UITextPanel : MonoBehaviour
 {
     Animator anim;
     Text text;
@@ -25,6 +25,10 @@ public class DialogTextPanel : MonoBehaviour
         
     }
 
+    public void Show()
+    {
+        anim.SetBool("Active", true);
+    }
     public void Show(string text)
     {
         anim.SetBool("Active", true);

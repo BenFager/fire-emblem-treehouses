@@ -6,8 +6,8 @@ using UnityEngine;
 public class DialogUI : MonoBehaviour, IDialogUI
 {
     DialogImagePanel imagePanel;
-    DialogTextPanel namePanel;
-    DialogTextPanel textPanel;
+    UITextPanel namePanel;
+    UITextPanel textPanel;
 
     [Serializable]
     public struct DialogSprite
@@ -29,8 +29,8 @@ public class DialogUI : MonoBehaviour, IDialogUI
     {
         Transform dialogCanvas = transform.Find("DialogCanvas");
         imagePanel = dialogCanvas.Find("ImagePanel").GetComponent<DialogImagePanel>();
-        namePanel = dialogCanvas.Find("NamePanel").GetComponent<DialogTextPanel>();
-        textPanel = dialogCanvas.Find("TextPanel").GetComponent<DialogTextPanel>();
+        namePanel = dialogCanvas.Find("NamePanel").GetComponent<UITextPanel>();
+        textPanel = dialogCanvas.Find("TextPanel").GetComponent<UITextPanel>();
         menu = GameObject.FindGameObjectWithTag("DialogChoiceMenu").GetComponent<DialogChoiceMenu>();
         // get dialog sprites
         foreach (DialogSprite s in spriteList)
