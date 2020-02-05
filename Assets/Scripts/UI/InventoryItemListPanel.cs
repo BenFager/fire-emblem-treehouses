@@ -14,17 +14,12 @@ public class InventoryItemListPanel : MonoBehaviour, IUIPanel
 
     // ui elements
     UITextPanel basePanel;
-    UIScrollbar scrollbar;
-    public bool scrollbarEnabled = false;
-
     RectTransform scrollPanel;
 
     void Awake()
     {
         basePanel = GetComponent<UITextPanel>();
-        scrollbar = transform.Find("Scrollbar").GetComponent<UIScrollbar>();
         scrollPanel = transform.Find("ScrollBox").Find("ScrollBoxContent").GetComponent<RectTransform>();
-        transform.Find("ScrollBox").GetComponent<ScrollRect>().vertical = scrollbarEnabled;
     }
 
     // Start is called before the first frame update
@@ -86,12 +81,6 @@ public class InventoryItemListPanel : MonoBehaviour, IUIPanel
             if (vertSize > scrollPanelSize)
             {
                 scrollPanel.sizeDelta = new Vector2(scrollPanel.sizeDelta.x, vertSize - scrollPanelSize);
-                scrollbar.Set(1);
-                // no scrollbar due to keyboard input
-                if (scrollbarEnabled)
-                {
-                    scrollbar.Show();
-                }
             }
         }
     }
@@ -103,6 +92,5 @@ public class InventoryItemListPanel : MonoBehaviour, IUIPanel
         {
             Hide();
         }
-        scrollbar.Hide();
     }
 }
