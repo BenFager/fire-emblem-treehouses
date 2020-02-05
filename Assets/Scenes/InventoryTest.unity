@@ -415,6 +415,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5747963895329965534, guid: 3286f542d7813f141887d209a2f3044b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 527.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6585045480100082439, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -435,15 +440,30 @@ PrefabInstance:
       propertyPath: m_ShowMaskGraphic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3602619693478783799, guid: 3286f542d7813f141887d209a2f3044b,
+        type: 3}
+      propertyPath: m_Vertical
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6518881538238314872, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5599168523054113771, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
       propertyPath: m_Value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739847745018499864, guid: 3286f542d7813f141887d209a2f3044b,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739847745766338573, guid: 3286f542d7813f141887d209a2f3044b,
+        type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3286f542d7813f141887d209a2f3044b, type: 3}

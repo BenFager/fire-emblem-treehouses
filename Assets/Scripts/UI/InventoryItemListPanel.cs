@@ -84,6 +84,7 @@ public class InventoryItemListPanel : MonoBehaviour, IUIPanel
             }
         }
     }
+    // coroutine to handle scrolling and UI marker
 
     public void Hide()
     {
