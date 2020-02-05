@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryItemListPanel : MonoBehaviour, IUIPanel
 {
@@ -14,6 +15,7 @@ public class InventoryItemListPanel : MonoBehaviour, IUIPanel
     // ui elements
     UITextPanel basePanel;
     UIScrollbar scrollbar;
+    public bool scrollbarEnabled = false;
 
     RectTransform scrollPanel;
 
@@ -21,14 +23,13 @@ public class InventoryItemListPanel : MonoBehaviour, IUIPanel
     {
         basePanel = GetComponent<UITextPanel>();
         scrollbar = transform.Find("Scrollbar").GetComponent<UIScrollbar>();
-
         scrollPanel = transform.Find("ScrollBox").Find("ScrollBoxContent").GetComponent<RectTransform>();
+        transform.Find("ScrollBox").GetComponent<ScrollRect>().vertical = scrollbarEnabled;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -86,7 +87,11 @@ public class InventoryItemListPanel : MonoBehaviour, IUIPanel
             {
                 scrollPanel.sizeDelta = new Vector2(scrollPanel.sizeDelta.x, vertSize - scrollPanelSize);
                 scrollbar.Set(1);
-                scrollbar.Show();
+                // no scrollbar due to keyboard input
+                if (scrollbarEnabled)
+                {
+                    scrollbar.Show();
+                }
             }
         }
     }
