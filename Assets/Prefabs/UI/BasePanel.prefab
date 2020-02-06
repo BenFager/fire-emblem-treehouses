@@ -231,7 +231,7 @@ MonoBehaviour:
     m_MaxSize: 75
     m_Alignment: 3
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -248,11 +248,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasePanel
       objectReference: {fileID: 0}
-    - target: {fileID: 1050824422204286688, guid: 118045de7c4459b4d86c656b205f992f,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 97e761949d52ab343832f8200cd6603b, type: 2}
     - target: {fileID: 3037110770532793268, guid: 118045de7c4459b4d86c656b205f992f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -358,6 +353,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1050824422204286688, guid: 118045de7c4459b4d86c656b205f992f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 97e761949d52ab343832f8200cd6603b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 118045de7c4459b4d86c656b205f992f, type: 3}
 --- !u!1 &8452196335910668594 stripped

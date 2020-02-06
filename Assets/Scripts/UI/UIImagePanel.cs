@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogImagePanel : MonoBehaviour, IUIPanel
+public class UIImagePanel : MonoBehaviour, IUIPanel
 {
     Animator anim;
     Image image;

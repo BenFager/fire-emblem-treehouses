@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    IUIPanel inventoryPanel;
-    InventoryItemListPanel itemListPanel;
+    public UICompositePanel inventoryPanel;
+    public InventoryItemListPanel itemListPanel;
+    public InventoryMarker marker;
+    bool ready = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        Transform invPanel = transform.Find("Canvas").Find("InventoryPanel");
-        inventoryPanel = invPanel.GetComponent<IUIPanel>();
-        itemListPanel = invPanel.Find("Position").Find("ItemListPanel").GetComponent<InventoryItemListPanel>();
+        StartCoroutine(OpenInventory());
+    }
+    IEnumerator OpenInventory()
+    {
+        yield return new WaitForSeconds(5f);
         // test UI
         List<InventoryItem> testItems = new List<InventoryItem>();
         InventoryItemList itemList = InventoryItemList.GetInstance();
@@ -24,11 +28,28 @@ public class InventoryUI : MonoBehaviour
         }
         itemListPanel.SetItems(testItems);
         inventoryPanel.Show();
+        marker.Show();
+        ready = true;
     }
 
     // Update is called once per frame
+    static int p;
     void Update()
     {
-        
+        if (!ready)
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            p++;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            p--;
+        }
+        p = Mathf.Clamp(p, 0, 17);
+        marker.MoveTo(p);
+        itemListPanel.Highlight(p);
     }
 }

@@ -203,7 +203,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &787068136
+--- !u!1001 &1899188157
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -275,31 +275,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 37350436}
-    - target: {fileID: 1651157036838832128, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1651157037346836877, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4395930907307553679, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6495542890339288499, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6495542890818823846, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4275909755807889444, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
       propertyPath: m_Material
@@ -400,60 +375,20 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5747963895329965534, guid: 3286f542d7813f141887d209a2f3044b,
+    - target: {fileID: 2857443595853472819, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5747963895329965534, guid: 3286f542d7813f141887d209a2f3044b,
+    - target: {fileID: 2857443596629720510, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5747963895329965534, guid: 3286f542d7813f141887d209a2f3044b,
+    - target: {fileID: 886294895504148017, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747963895329965534, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 527.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585045480100082439, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853718598554312773, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: maxPanels
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 4853718598554312773, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: scrollPanelSize
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3361224592459150510, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_ShowMaskGraphic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3602619693478783799, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_Vertical
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6518881538238314872, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5599168523054113771, guid: 3286f542d7813f141887d209a2f3044b,
-        type: 3}
-      propertyPath: m_Value
-      value: 0
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7739847745018499864, guid: 3286f542d7813f141887d209a2f3044b,
         type: 3}
@@ -467,40 +402,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3286f542d7813f141887d209a2f3044b, type: 3}
---- !u!1 &787068137 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7698641958408142409, guid: 3286f542d7813f141887d209a2f3044b,
-    type: 3}
-  m_PrefabInstance: {fileID: 787068136}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &787068138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787068137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5ef604ea3cfb1c4cb8b3d58113f7363, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items:
-  - id: sword
-    name: Maximum Edge
-    uses: 30
-    maxUses: 30
-    sprite: {fileID: 9177083893619031981, guid: 2aec2ff468bd6ae43b159778e110463c,
-      type: 3}
-  - id: axe
-    name: Axe of Questions
-    uses: 25
-    maxUses: 25
-    sprite: {fileID: -3968841864952511237, guid: 2aec2ff468bd6ae43b159778e110463c,
-      type: 3}
-  - id: spear
-    name: Pointless Spear
-    uses: 20
-    maxUses: 0
-    sprite: {fileID: -6537004957285641251, guid: 2aec2ff468bd6ae43b159778e110463c,
-      type: 3}

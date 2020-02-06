@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3875891524009870203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018102762618668881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e64ceb72bfe8e144ab07eab57b734a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsPanel: {fileID: 4853718598554312773}
 --- !u!1 &7698641958408142409
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,6 +22,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6837557703779272811}
+  - component: {fileID: 2256984234059752827}
   m_Layer: 0
   m_Name: InventoryItemList
   m_TagString: InventoryItemList
@@ -30,6 +44,37 @@ Transform:
   m_Father: {fileID: 8390883443551992008}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2256984234059752827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7698641958408142409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ef604ea3cfb1c4cb8b3d58113f7363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - id: sword
+    name: Maximum Edge
+    uses: 30
+    maxUses: 30
+    sprite: {fileID: 9177083893619031981, guid: 2aec2ff468bd6ae43b159778e110463c,
+      type: 3}
+  - id: axe
+    name: Axe of Questions
+    uses: 25
+    maxUses: 25
+    sprite: {fileID: -3968841864952511237, guid: 2aec2ff468bd6ae43b159778e110463c,
+      type: 3}
+  - id: spear
+    name: Pointless Spear
+    uses: 20
+    maxUses: 0
+    sprite: {fileID: -6537004957285641251, guid: 2aec2ff468bd6ae43b159778e110463c,
+      type: 3}
 --- !u!1 &8390883441541394117
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +375,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3f1b4b0cbb64a42b72e26e3143b908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 841176807033011268}
+  itemListPanel: {fileID: 4853718598554312773}
+  marker: {fileID: 3875891524009870203}
 --- !u!1001 &3974909707945943854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -447,6 +495,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8390883442247058283, guid: a81f1a2987ce8d34c8fda830502c63ab,
+        type: 3}
+      propertyPath: maxPanels
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390883442247058283, guid: a81f1a2987ce8d34c8fda830502c63ab,
+        type: 3}
+      propertyPath: scrollPanelSize
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 3491108818815458896, guid: a81f1a2987ce8d34c8fda830502c63ab,
         type: 3}
       propertyPath: m_Material
@@ -467,7 +525,22 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4279958769957004575, guid: a81f1a2987ce8d34c8fda830502c63ab,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2852413916923509000, guid: a81f1a2987ce8d34c8fda830502c63ab,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192920218898335517, guid: a81f1a2987ce8d34c8fda830502c63ab,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192920217383771792, guid: a81f1a2987ce8d34c8fda830502c63ab,
         type: 3}
       propertyPath: m_Material
       value: 
@@ -537,27 +610,7 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4661359061163371553, guid: a81f1a2987ce8d34c8fda830502c63ab,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4661359061854179124, guid: a81f1a2987ce8d34c8fda830502c63ab,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1192920217383771792, guid: a81f1a2987ce8d34c8fda830502c63ab,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1192920218898335517, guid: a81f1a2987ce8d34c8fda830502c63ab,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4279958769957004575, guid: a81f1a2987ce8d34c8fda830502c63ab,
+    - target: {fileID: 6647526172805640246, guid: a81f1a2987ce8d34c8fda830502c63ab,
         type: 3}
       propertyPath: m_Material
       value: 
@@ -567,7 +620,12 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6647526172805640246, guid: a81f1a2987ce8d34c8fda830502c63ab,
+    - target: {fileID: 4661359061163371553, guid: a81f1a2987ce8d34c8fda830502c63ab,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661359061854179124, guid: a81f1a2987ce8d34c8fda830502c63ab,
         type: 3}
       propertyPath: m_Material
       value: 
@@ -583,6 +641,24 @@ GameObject:
 --- !u!224 &4482348143154949539 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 656901789714435725, guid: a81f1a2987ce8d34c8fda830502c63ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 3974909707945943854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4853718598554312773 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8390883442247058283, guid: a81f1a2987ce8d34c8fda830502c63ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 3974909707945943854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482348143154949538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fce3037ee0aec46bc211b26c2a70dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1018102762618668881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4109728450022237311, guid: a81f1a2987ce8d34c8fda830502c63ab,
     type: 3}
   m_PrefabInstance: {fileID: 3974909707945943854}
   m_PrefabAsset: {fileID: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialogUI : MonoBehaviour, IDialogUI
 {
-    DialogImagePanel imagePanel;
+    UIImagePanel imagePanel;
     UITextPanel namePanel;
     UITextPanel textPanel;
 
@@ -28,7 +28,7 @@ public class DialogUI : MonoBehaviour, IDialogUI
     void Start()
     {
         Transform dialogCanvas = transform.Find("Canvas");
-        imagePanel = dialogCanvas.Find("ImagePanel").GetComponent<DialogImagePanel>();
+        imagePanel = dialogCanvas.Find("ImagePanel").GetComponent<UIImagePanel>();
         namePanel = dialogCanvas.Find("NamePanel").GetComponent<UITextPanel>();
         textPanel = dialogCanvas.Find("TextPanel").GetComponent<UITextPanel>();
         menu = GameObject.FindGameObjectWithTag("DialogChoiceMenu").GetComponent<DialogChoiceMenu>();

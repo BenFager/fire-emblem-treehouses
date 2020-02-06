@@ -9,6 +9,7 @@ public class InventoryItemPanel : MonoBehaviour, IUIPanel
     Image image;
     Text text;
     Text info;
+    Image frame;
 
     void Awake()
     {
@@ -16,6 +17,7 @@ public class InventoryItemPanel : MonoBehaviour, IUIPanel
         text = transform.Find("Position").Find("Text").GetComponent<Text>();
         info = transform.Find("Position").Find("TextItemInfo").GetComponent<Text>();
         image = transform.Find("Position").Find("Image").GetComponent<Image>();
+        frame = transform.Find("Position").Find("Frame").GetComponent<Image>();
     }
 
     // Start is called before the first frame update
@@ -43,11 +45,21 @@ public class InventoryItemPanel : MonoBehaviour, IUIPanel
 
     public void Show()
     {
-        anim.SetBool("Active", true);
     }
 
     public void Hide()
     {
-        anim.SetBool("Active", false);
+    }
+
+    public void SetHighlight(bool highlight)
+    {
+        if (highlight)
+        {
+            frame.color = new Color(50 / 255f, 11 / 255f, 148 / 255f);
+        }
+        else
+        {
+            frame.color = Color.black;
+        }
     }
 }
