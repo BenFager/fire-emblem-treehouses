@@ -31,7 +31,7 @@ public class ApproachAI : MonoBehaviour, AIUnit
     {
         bool targetsInRange = false;
         Vector2Int locationToTravelTo;
-        Vector2Int locationToAttack;
+        Vector2Int locationToAttack = new Vector2Int(int.MaxValue, int.MaxValue);
         if (combatController.getSide(thisUnit) == UnitSide.ENEMY)
         {
             if (thisUnit.getUnitsInRange().Any(x => x.getSide() == UnitSide.ALLY) || thisUnit.getUnitsInRange().Any(x => x.getSide() == UnitSide.PLAYER))
@@ -49,9 +49,6 @@ public class ApproachAI : MonoBehaviour, AIUnit
         if (!targetsInRange)//No target in range------------------------------------------------------------------------------------------------------------------------
         {
             
-
-            int arrayIndexOfClosest = 0;
-            UnitSide sideBeingTargeted = UnitSide.ENEMY;
             //Calculate nearest unit
             UnitSide mySide = combatController.getSide(thisUnit);
             List<UnitAndCost> potentialTargets = new List<UnitAndCost>();
@@ -68,12 +65,6 @@ public class ApproachAI : MonoBehaviour, AIUnit
                     {
                         float cost = listOfCurrentNodes[listOfCurrentNodes.Count - 1].cost;
                         potentialTargets.Add(new UnitAndCost(combatController.allyUnits[i], cost, UnitSide.ALLY));
-                        //if (cost < distanceToClosest)
-                        //{
-                        //    arrayIndexOfClosest = i;
-                        //    distanceToClosest = cost;
-                        //    sideBeingTargeted = UnitSide.ALLY;
-                        //}
                     }
                 }
                 for (int i = 0; i < combatController.playerUnits.Count; i++)
@@ -84,12 +75,6 @@ public class ApproachAI : MonoBehaviour, AIUnit
                     {
                         float cost = listOfCurrentNodes[listOfCurrentNodes.Count - 1].cost;
                         potentialTargets.Add(new UnitAndCost(combatController.playerUnits[i], cost, UnitSide.PLAYER));
-                        //if (cost < distanceToClosest)
-                        //{
-                        //    arrayIndexOfClosest = i;
-                        //    distanceToClosest = cost;
-                        //    sideBeingTargeted = UnitSide.PLAYER;
-                        //}
                     }
                 }
             }
@@ -103,12 +88,6 @@ public class ApproachAI : MonoBehaviour, AIUnit
                     {
                         float cost = listOfCurrentNodes[listOfCurrentNodes.Count - 1].cost;
                         potentialTargets.Add(new UnitAndCost(combatController.enemyUnits[i], cost, UnitSide.ENEMY));
-                        //if (cost < distanceToClosest)
-                        //{
-                        //    arrayIndexOfClosest = i;
-                        //    distanceToClosest = cost;
-                        //    sideBeingTargeted = UnitSide.ENEMY;
-                        //}
                     }
                 }
 
@@ -126,36 +105,91 @@ public class ApproachAI : MonoBehaviour, AIUnit
             {
                 //DO NOTHING, NOTHING CAN BE REACHED
                 //NOTHING I TELL YOU
+                locationToTravelTo = thisUnit.loc;
             }
             else
             {
-                MapUnit unitBeingTargeted;
-                if (sideBeingTargeted == UnitSide.ALLY)
+                locationToTravelTo = thisUnit.loc;
+                foreach(UnitAndCost currentUnit in potentialTargets)
                 {
-                    unitBeingTargeted = combatController.allyUnits[arrayIndexOfClosest];
+                    List<Vector2Int> tilesICanPathTo = new List<Vector2Int>();
+                    foreach(Vector2Int v in currentUnit.m_unit.getAttackTiles(true))
+                    {
+                        if(pathfinding.Pathfind(worldMap.mapTiles, thisUnit.loc, v, thisUnit) != null && combatController.unitInTile(v) == null)
+                        {
+                            tilesICanPathTo.Add(v);
+                        }
+                    }
+                    if(!(tilesICanPathTo.Count > 0))
+                    {
+                        locationToAttack = currentUnit.m_unit.loc;
+                        if (tilesICanPathTo.Count == 1) //there's one viable location
+                        {
+                            locationToTravelTo = tilesICanPathTo[0];
+                        }
+                        else //there's more than one viable location
+                        {
+                            int indexOfShortest = 0;
+                            List<PathNode> nodesAtFirst = pathfinding.Pathfind(worldMap.mapTiles, thisUnit.loc, tilesICanPathTo[0], thisUnit);
+                            float costOfShortest = nodesAtFirst[nodesAtFirst.Count - 1].cost;
+                            for(int i = 1; i < tilesICanPathTo.Count; i++)
+                            {
+                                
+                                List<PathNode> nodes = pathfinding.Pathfind(worldMap.mapTiles, thisUnit.loc, tilesICanPathTo[i], thisUnit);
+                                if (nodes[nodes.Count - 1].cost < costOfShortest)
+                                {
+                                    indexOfShortest = i;
+                                    costOfShortest = nodes[nodes.Count - 1].cost;
+                                }
+                            }
+                            locationToTravelTo = tilesICanPathTo[indexOfShortest];
+                        }
+                        break;
+                    }
                 }
-                else if (sideBeingTargeted == UnitSide.ENEMY)
+                if(locationToTravelTo == thisUnit.loc)
                 {
-                    unitBeingTargeted = combatController.enemyUnits[arrayIndexOfClosest];
+                    //if we can't reach anything, just approach the nearest enemy(or nearest spot in range of the nearest enemy)
+                    List<PathNode> nodesToBacktrack = pathfinding.Pathfind(worldMap.mapTiles, thisUnit.loc, potentialTargets[0].m_unit.loc, thisUnit);
+                    bool isFinished = false;
+                    while(nodesToBacktrack.Count > 0 && !isFinished)
+                    {
+                        if(combatController.unitInTile(nodesToBacktrack[nodesToBacktrack.Count - 1].pos) != null)
+                        {
+                            nodesToBacktrack.Remove(nodesToBacktrack[nodesToBacktrack.Count - 1]);
+                        }
+                        else
+                        {
+                            isFinished = true;
+                        }
+                    }
+                    locationToTravelTo = nodesToBacktrack[nodesToBacktrack.Count - 1].pos;
                 }
-                else
-                {
-                    unitBeingTargeted = combatController.playerUnits[arrayIndexOfClosest];
-                }
-                //Find which location closest to it is 
+
+                //we now have a target selected
             }
 
             
         }
         else//There are targets in range--------------------------------------------------------------------------------------
         {
-
+            Debug.Log("I've got you in MY SIGHTS");
+            locationToTravelTo = thisUnit.loc;
         }
         //Move to the targeted location----------
         //while not at target
         //{
         //move a little
-        yield break;
+        thisUnit.Move(pathfinding.GetAIPath(worldMap.mapTiles, thisUnit.loc, locationToTravelTo, thisUnit.numOfMovement, thisUnit).Select(x => x.pos).ToList());
+        bool isFinishedMoving = false;
+        while(!isFinishedMoving)
+        {
+            yield break;
+        }
+        if (targetsInRange)
+        {
+            thisUnit.Attack(combatController.unitInTile(locationToAttack));
+        }
         //}
         //once at targeted location, if(targetsInRange) attack target at locationToAttack
     }

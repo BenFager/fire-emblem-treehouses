@@ -123,6 +123,33 @@ public class CombatController : MonoBehaviour
         }
         return UnitSide.PLAYER;
     }
+    public MapUnit unitInTile(Vector2Int location)
+    {
+        foreach(MapUnit m in playerUnits)
+        {
+            if(m.loc == location)
+            {
+                return m;
+            }
+        }
+        foreach(MapUnit m in allyUnits)
+        {
+            if(m.loc == location)
+            {
+                return m;
+            }
+        }
+        foreach(MapUnit m in enemyUnits)
+        {
+            if(m.loc == location)
+            {
+                return m;
+            }
+        }
+        return null;
+
+
+    }
 }
 public enum UnitSide
 {

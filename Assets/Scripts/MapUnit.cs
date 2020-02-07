@@ -66,7 +66,7 @@ public class MapUnit : MonoBehaviour
     {
 
     }
-    public void Attack()
+    public void Attack(MapUnit target)
     {
 
     }
@@ -156,6 +156,10 @@ public class MapUnit : MonoBehaviour
         }
         return(returnList);
     }
+
+
+
+
     public UnitSide getSide()
     {
         return combatController.getSide(this);
