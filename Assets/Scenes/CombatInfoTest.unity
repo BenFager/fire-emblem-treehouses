@@ -120,6 +120,82 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1300809642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1300809643}
+  - component: {fileID: 1300809644}
+  m_Layer: 0
+  m_Name: MapUnitInfo
+  m_TagString: MapUnitInfoList
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1300809643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300809642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.75136745, y: 0.17917286, z: 402.1836}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1300809644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300809642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daceebd4529809b41a6c0fe72ac8b027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  units:
+  - id: ben
+    name: Ben
+    image: {fileID: 21300000, guid: 92047b4c65966224f90726a281f37c4d, type: 3}
+    weapon:
+      id: sword
+      name: Maximum Edge
+      uses: 25
+      maxUses: 30
+      sprite: {fileID: 9177083893619031981, guid: 2aec2ff468bd6ae43b159778e110463c,
+        type: 3}
+    maxHP: 25
+    HP: 21
+    speed: 10
+    attack: 6
+    hit: 89
+    crit: 35
+  - id: ben2
+    name: The Cooler Ben
+    image: {fileID: 21300000, guid: 15fb4c6233ff99d4881a4be42e41ac92, type: 3}
+    weapon:
+      id: axe
+      name: Axe of Questions
+      uses: 15
+      maxUses: 20
+      sprite: {fileID: -3968841864952511237, guid: 2aec2ff468bd6ae43b159778e110463c,
+        type: 3}
+    maxHP: 15
+    HP: 13
+    speed: 5
+    attack: 7
+    hit: 68
+    crit: 5
 --- !u!1 &1557708395
 GameObject:
   m_ObjectHideFlags: 0

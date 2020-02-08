@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryItemList : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>();
-    Dictionary<string, InventoryItem> itemsByName = new Dictionary<string, InventoryItem>();
+    Dictionary<string, InventoryItem> itemsById = new Dictionary<string, InventoryItem>();
 
     public static InventoryItemList GetInstance()
     {
@@ -16,7 +16,7 @@ public class InventoryItemList : MonoBehaviour
     {
         foreach (InventoryItem item in items)
         {
-            itemsByName[item.id] = item;
+            itemsById[item.id] = item;
         }
     }
 
@@ -32,8 +32,8 @@ public class InventoryItemList : MonoBehaviour
         
     }
 
-    public InventoryItem GetItemById(string name)
+    public InventoryItem GetItemById(string id)
     {
-        return itemsByName[name];
+        return itemsById[id];
     }
 }

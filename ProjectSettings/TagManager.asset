@@ -11,6 +11,7 @@ TagManager:
   - DialogRunner
   - DialogChoiceMenu
   - InventoryItemList
+  - MapUnitInfoList
   layers:
   - Default
   - TransparentFX

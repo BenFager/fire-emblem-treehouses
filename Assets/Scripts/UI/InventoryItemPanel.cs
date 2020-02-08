@@ -43,6 +43,8 @@ public class InventoryItemPanel : MonoBehaviour, IUIPanel
         image.sprite = item.sprite;
     }
 
+    // should always be shown since it is expensive to do the animation
+    // fade in via parent canvas group instead
     public void Show()
     {
     }

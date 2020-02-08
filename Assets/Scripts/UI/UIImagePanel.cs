@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIImagePanel : MonoBehaviour, IUIPanel
 {
+    public bool startShown = false;
+
     Animator anim;
     Image image;
     void Awake()
@@ -16,7 +18,10 @@ public class UIImagePanel : MonoBehaviour, IUIPanel
     // Start is called before the first frame update
     void Start()
     {
-
+        if (startShown)
+        {
+            Show();
+        }
     }
 
     // Update is called once per frame

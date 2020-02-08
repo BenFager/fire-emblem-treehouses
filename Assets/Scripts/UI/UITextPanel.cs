@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UITextPanel : MonoBehaviour, IUIPanel
 {
+    public bool startShown = false;
+
     Animator anim;
     Text text;
     void Awake()
@@ -16,7 +18,10 @@ public class UITextPanel : MonoBehaviour, IUIPanel
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (startShown)
+        {
+            Show();
+        }
     }
 
     // Update is called once per frame

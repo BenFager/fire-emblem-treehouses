@@ -8,11 +8,17 @@ public class InventoryMarker : MonoBehaviour, IUIPanel
     RectTransform pos;
     UIImagePanel image;
     public InventoryItemListPanel itemsPanel;
-    // Start is called before the first frame update
-    void Start()
+    
+    void Awake()
     {
         pos = GetComponent<RectTransform>();
         image = GetComponent<UIImagePanel>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
