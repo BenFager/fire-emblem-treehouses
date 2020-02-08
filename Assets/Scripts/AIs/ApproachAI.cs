@@ -11,6 +11,8 @@ public class ApproachAI : MonoBehaviour, AIUnit
     Coroutine c;
     CombatController combatController;
     MapUnit thisUnit;
+    bool isFinishedWithTurn;
+    int tempCounter = 0;
     
 
     // Start is called before the first frame update
@@ -19,6 +21,7 @@ public class ApproachAI : MonoBehaviour, AIUnit
         worldMap = WorldMap.GetInstance();
         pathfinding = GameObject.FindGameObjectWithTag("WorldMap").GetComponent<Pathfinding>();
         combatController = GameObject.FindGameObjectWithTag("CombatController").GetComponent<CombatController>();
+        thisUnit = GetComponent<MapUnit>();
     }
 
     // Update is called once per frame
@@ -29,6 +32,7 @@ public class ApproachAI : MonoBehaviour, AIUnit
 
     IEnumerator runApproachAI()
     {
+        isFinishedWithTurn = false;
         bool targetsInRange = false;
         Vector2Int locationToTravelTo;
         Vector2Int locationToAttack = new Vector2Int(int.MaxValue, int.MaxValue);
@@ -180,11 +184,14 @@ public class ApproachAI : MonoBehaviour, AIUnit
         //while not at target
         //{
         //move a little
+        Debug.Log("Got to point 1" + tempCounter);
         thisUnit.Move(pathfinding.GetAIPath(worldMap.mapTiles, thisUnit.loc, locationToTravelTo, thisUnit.numOfMovement, thisUnit).Select(x => x.pos).ToList());
-        bool isFinishedMoving = false;
-        while(!isFinishedMoving)
+        Debug.Log("Got to point 2" + tempCounter);
+        while(!thisUnit.isDoneMoving())
         {
-            yield break;
+            Debug.Log("Is not done moving" + tempCounter);
+            tempCounter++;
+            yield return null;
         }
         if (targetsInRange)
         {
@@ -192,14 +199,18 @@ public class ApproachAI : MonoBehaviour, AIUnit
         }
         //}
         //once at targeted location, if(targetsInRange) attack target at locationToAttack
+        isFinishedWithTurn = true;
     }
 
     public void TakeTurn()
     {
         StartCoroutine(runApproachAI());
     }
-    
-    
+
+    public bool isFinished()
+    {
+        return isFinishedWithTurn;
+    }
 }
 
 public class UnitAndCost

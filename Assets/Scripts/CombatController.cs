@@ -10,13 +10,14 @@ public class CombatController : MonoBehaviour
     public List<MapUnit> allyUnits;
     public List<MapUnit> playerUnits;
     PlayerController playerController;
+    AIController aiController;
     Coroutine c;
     // Start is called before the first frame update
     public void Initialize()
     {
         turnType = UnitSide.PLAYER;
         playerController = GetComponent<PlayerController>();
-        
+        aiController = GetComponent<AIController>();
         
     }
 
@@ -54,14 +55,18 @@ public class CombatController : MonoBehaviour
                     break;
                 case UnitSide.ENEMY:
                     Debug.Log("Enemy Turn!");//Todo: replace with ui
-                    foreach (MapUnit c in enemyUnits)   
+                    foreach (MapUnit c in enemyUnits)
                     {
                         c.EnableAction();
                         //Todo: enable enemy ai controller UI
+
+
                     }
                     while (anyHaveTurn(enemyUnits))
                     {
                         yield return null;
+                        //aiController.moveAI();
+                        aiController.runAI();
                     }
                     //Notify enemy ai controller that it's done
                     turnType = UnitSide.ALLY;

@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
                                 {
                                     for(int i = 1; i < selectedPath.Count; i++)
                                     {
-                                        Debug.Log("Doing thinds");
+
                                         map.SetDebugLine(selectedPath[i - 1], selectedPath[i]);
                                     }
                                 }

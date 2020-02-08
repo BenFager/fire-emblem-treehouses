@@ -15,6 +15,7 @@ public class MapUnit : MonoBehaviour
     public CombatController combatController;
     Pathfinding pathfinding;
     PlayerController playerController;
+    public AIUnit aiUnit;
 
 
     // Start is called before the first frame update
@@ -79,6 +80,11 @@ public class MapUnit : MonoBehaviour
     {
         //animator.SetBool("active", false);
         hasTurn = false;
+    }
+    public bool isDoneMoving()
+    {
+        return path == null;
+
     }
 
     //In the future this function will get attack ranges based on inventory/weapon ranges
@@ -173,5 +179,7 @@ public enum MovementType
 
 public interface AIUnit
 {
+    
     void TakeTurn();
+    bool isFinished();
 }

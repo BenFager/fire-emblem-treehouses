@@ -10,6 +10,7 @@ public class AIController : MonoBehaviour
     CameraMovement cam;
     WorldMap map;
     Pathfinding pathfinding;
+    CombatController combatController;
     
     // Start is called before the first frame update
     void Start()
@@ -18,11 +19,29 @@ public class AIController : MonoBehaviour
         cam = Camera.main.GetComponent<CameraMovement>();
         map = GameObject.FindGameObjectWithTag("WorldMap").GetComponent<WorldMap>();
         pathfinding = GameObject.FindGameObjectWithTag("WorldMap").GetComponent<Pathfinding>();
+        combatController = GameObject.FindGameObjectWithTag("CombatController").GetComponent<CombatController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    private IEnumerator moveAI()
+    {
+        if (combatController.turnType == UnitSide.ENEMY)
+        {
+            foreach(MapUnit m in combatController.enemyUnits)
+            {
+                AIUnit currentAI = m.GetComponent<AIUnit>();
+                currentAI.TakeTurn();
+                while(!m.isDoneMoving())
+                {
+                    yield return null;
+                }
+            }
+        }
         
     }
 
@@ -36,6 +55,10 @@ public class AIController : MonoBehaviour
     {
         isEnabled = false;
         cursor.Enable();
+    }
+    public void runAI()
+    {
+        StartCoroutine(moveAI());
     }
 
     //AI types:
