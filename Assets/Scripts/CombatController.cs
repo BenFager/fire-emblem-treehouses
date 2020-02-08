@@ -64,9 +64,10 @@ public class CombatController : MonoBehaviour
                     }
                     while (anyHaveTurn(enemyUnits))
                     {
-                        yield return null;
+                        
                         //aiController.moveAI();
                         aiController.runAI();
+                        yield return null;
                     }
                     //Notify enemy ai controller that it's done
                     turnType = UnitSide.ALLY;

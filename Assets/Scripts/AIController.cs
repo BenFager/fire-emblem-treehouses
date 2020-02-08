@@ -11,6 +11,7 @@ public class AIController : MonoBehaviour
     WorldMap map;
     Pathfinding pathfinding;
     CombatController combatController;
+    bool isFinishedWithMoveAI = true;
     
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class AIController : MonoBehaviour
 
     private IEnumerator moveAI()
     {
+        isFinishedWithMoveAI = false;
         if (combatController.turnType == UnitSide.ENEMY)
         {
             foreach(MapUnit m in combatController.enemyUnits)
@@ -42,6 +44,7 @@ public class AIController : MonoBehaviour
                 }
             }
         }
+        isFinishedWithMoveAI = true;
         
     }
 
@@ -58,7 +61,11 @@ public class AIController : MonoBehaviour
     }
     public void runAI()
     {
-        StartCoroutine(moveAI());
+        if (isFinishedWithMoveAI)
+        {
+            StartCoroutine(moveAI());
+        }
+
     }
 
     //AI types:
