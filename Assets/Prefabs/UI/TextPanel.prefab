@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8545453975373832411
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8452196335910668594, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_Name
+      value: TextPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452196335910668595, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103274036180922792, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103274036180922792, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 103274036180922792, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103274036180922792, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 805496811688592434, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 805496811688592434, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_Text
+      value: I write good code. Please don't look at it though. It becomes worse when
+        you look at it. This text box is actually quite long and can fit a lot of
+        text. Thus, it could be made smaller.
+      objectReference: {fileID: 0}
+    - target: {fileID: 805496811688592434, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 805496811688592434, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 805496811688592434, guid: c2c433f6a882a3b4f8c839aaa5631eff,
+        type: 3}
+      propertyPath: m_FontData.m_RichText
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c2c433f6a882a3b4f8c839aaa5631eff, type: 3}

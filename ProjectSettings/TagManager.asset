@@ -7,6 +7,11 @@ TagManager:
   - WorldMap
   - Cursor
   - CombatController
+  - DialogEvents
+  - DialogRunner
+  - DialogChoiceMenu
+  - InventoryItemList
+  - MapUnitInfoList
   layers:
   - Default
   - TransparentFX

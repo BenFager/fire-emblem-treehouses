@@ -1,0 +1,106 @@
+---
+- character:
+    name: ???
+    id: H
+- character:
+    name: ???
+    id: P
+- character:
+    name: ǝpnɐlɔ
+    id: C
+
+- pass: ''
+- pass: ''
+
+- show:
+    id: C
+    image: default
+- C: ʎʞooooooooods
+
+- event:
+    id: test_menu
+- if:
+    id: test_menu_choice_A
+    block:
+    - You clicked choice A.
+- if:
+    id: test_menu_choice_B
+    block:
+    - You clicked choice B.
+- if:
+    id: test_menu_choice_C
+    block:
+    - You clicked choice C.
+
+- These are some bare words.
+
+- jump: label2
+
+- pass: ''
+
+- event:
+    id: print
+    value: event test.
+
+- jump: label3
+
+- label:
+    id: label3
+    block:
+    - H: Begin test_flag test.
+    - if:
+        id: test_flag
+        block:
+        - Test Flag is true.
+    - ifnot:
+        id: test_flag
+        block:
+        - Test Flag is false.
+    - End test_flag test.
+    - H: It is now time to exit.
+    - pass: ''
+    - exit: ''
+    - WTF.
+    - WTF.
+    - jump: label2
+    - WTF.
+    - pass: ''
+    - return: ''
+    - pass: ''
+    - WTF.
+
+- label:
+    id: label2
+    block:
+    - You have entered label2.
+    - pass: ''
+    - show:
+        id: H
+        image: default
+        side: left
+        anim: slide_right
+    - H: This is hell.
+    - jump: label1
+    - Please leave.
+    - pass: ''
+    - return: ''
+    - pass: ''
+    - See ya.
+
+- label:
+    id: label1
+    block:
+    - show:
+        id: P
+        image: default
+    - You have entered label1.
+    - hide:
+        id: P
+    - pass: ''
+    - H: Enjoy your stay.
+    - Now it is time to leave.
+    - pass: ''
+    - Goodbye.
+
+
+
