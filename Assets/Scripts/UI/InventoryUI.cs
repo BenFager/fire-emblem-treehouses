@@ -48,7 +48,7 @@ public class InventoryUI : MonoBehaviour
         {
             p--;
         }
-        p = Mathf.Clamp(p, 0, 17);
+        p = Mathf.Clamp(p, 0, itemListPanel.Count);
         marker.MoveTo(p);
         itemListPanel.Highlight(p);
     }

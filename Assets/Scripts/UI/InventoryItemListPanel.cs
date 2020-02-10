@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InventoryItemListPanel : MonoBehaviour, IUIPanel
 {
     public List<InventoryItemPanel> itemPanels = new List<InventoryItemPanel>();
+    public int Count => itemPanels.Count;
     public int maxPanels = 20;
     public float scrollPanelSize = 800;
     public float itemPanelsOffset = -115;

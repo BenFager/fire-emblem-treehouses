@@ -324,6 +324,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatUIMarker
       objectReference: {fileID: 0}
+    - target: {fileID: 7184510682038979788, guid: 2988e308c5f0c5b4d9f952b5fba7fee0,
+        type: 3}
+      propertyPath: combatUI
+      value: 
+      objectReference: {fileID: 7639562808717628062}
     - target: {fileID: 6507660510778668916, guid: 2988e308c5f0c5b4d9f952b5fba7fee0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -429,11 +434,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7184510682038979788, guid: 2988e308c5f0c5b4d9f952b5fba7fee0,
-        type: 3}
-      propertyPath: combatUI
-      value: 
-      objectReference: {fileID: 7639562808717628062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2988e308c5f0c5b4d9f952b5fba7fee0, type: 3}
 --- !u!224 &6601305929774316219 stripped
