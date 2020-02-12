@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f067efcdcbf148418d49a9f810d86a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startShown: 0
 --- !u!222 &3979292460959970775
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -180,7 +181,8 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 30bc3b7a5ea4ece46817c694cb4600cf, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1050824422204286688, guid: 118045de7c4459b4d86c656b205f992f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 118045de7c4459b4d86c656b205f992f, type: 3}
 --- !u!1 &7757996452225436035 stripped
 GameObject:

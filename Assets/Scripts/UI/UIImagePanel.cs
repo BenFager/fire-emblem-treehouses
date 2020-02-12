@@ -32,7 +32,10 @@ public class UIImagePanel : MonoBehaviour, IUIPanel
 
     public void Show()
     {
-        anim.SetBool("Active", true);
+        if (anim != null)
+        {
+            anim.SetBool("Active", true);
+        }
     }
     public void Show(Sprite spr)
     {
@@ -41,6 +44,9 @@ public class UIImagePanel : MonoBehaviour, IUIPanel
     }
     public void Hide()
     {
-        anim.SetBool("Active", false);
+        if (anim != null)
+        {
+            anim.SetBool("Active", false);
+        }
     }
 }

@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour, IUIPanel
 {
     public UICompositePanel inventoryPanel;
     public InventoryItemListPanel itemListPanel;
     public InventoryMarker marker;
+    Animator anim;
     bool ready = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        anim = transform.Find("Canvas").Find("InventoryPanel").GetComponent<Animator>();
         StartCoroutine(OpenInventory());
     }
     IEnumerator OpenInventory()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         // test UI
         List<InventoryItem> testItems = new List<InventoryItem>();
         InventoryItemList itemList = InventoryItemList.GetInstance();
@@ -29,6 +31,7 @@ public class InventoryUI : MonoBehaviour
         itemListPanel.SetItems(testItems);
         inventoryPanel.Show();
         marker.Show();
+        Show();
         ready = true;
     }
 
@@ -48,8 +51,24 @@ public class InventoryUI : MonoBehaviour
         {
             p--;
         }
-        p = Mathf.Clamp(p, 0, itemListPanel.Count);
+        p = Mathf.Clamp(p, 0, itemListPanel.Count - 1);
         marker.MoveTo(p);
         itemListPanel.Highlight(p);
+    }
+
+    public void Show()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("Active", true);
+        }
+    }
+
+    public void Hide()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("Active", false);
+        }
     }
 }
