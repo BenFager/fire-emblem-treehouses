@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 982443242867253420}
   - component: {fileID: 7639562808717628062}
+  - component: {fileID: 4222864301318955966}
   m_Layer: 0
   m_Name: CombatUI
   m_TagString: Untagged
@@ -48,6 +49,25 @@ MonoBehaviour:
   actionPanels:
   - {fileID: 4881377095416449448}
   marker: {fileID: 7090869662631772419}
+--- !u!95 &4222864301318955966
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982443242867253423}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25dcee5e77ad2c441a2d7f5c1b5b205b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &982443243254260028
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7119717638322026729}
+  - component: {fileID: 9215577699166338490}
   m_Layer: 5
   m_Name: RightPanel
   m_TagString: Untagged
@@ -250,6 +271,18 @@ RectTransform:
   m_AnchoredPosition: {x: 800, y: 0}
   m_SizeDelta: {x: -2000, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &9215577699166338490
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242354369686324695}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2529095975506623817
 GameObject:
   m_ObjectHideFlags: 0

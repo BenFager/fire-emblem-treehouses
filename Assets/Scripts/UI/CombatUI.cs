@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatUI : MonoBehaviour
+public class CombatUI : MonoBehaviour, IUIPanel
 {
     public List<GameObject> actionPanels;
     public CombatUIMarker marker;
+    Animator anim;
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +21,7 @@ public class CombatUI : MonoBehaviour
             "Attack", "Ability", "Item", "Trade", "Wait"
         });
         marker.MoveTo(0);
+        Show();
     }
 
     // Update is called once per frame
@@ -76,5 +83,22 @@ public class CombatUI : MonoBehaviour
             p.GetComponent<UITextPanel>().SetHighlight(false);
         }
         actionPanels[i].GetComponent<UITextPanel>().SetHighlight(true);
+    }
+
+    public void Show()
+    {
+        Debug.Log(anim);
+        if (anim != null)
+        {
+            anim.SetBool("Active", true);
+        }
+    }
+
+    public void Hide()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("Active", false);
+        }
     }
 }
