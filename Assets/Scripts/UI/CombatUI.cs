@@ -7,6 +7,7 @@ public class CombatUI : MonoBehaviour, IUIPanel
     public List<GameObject> actionPanels;
     public CombatUIMarker marker;
     Animator anim;
+    int index = 0;
 
     void Awake()
     {
@@ -25,21 +26,20 @@ public class CombatUI : MonoBehaviour, IUIPanel
     }
 
     // Update is called once per frame
-    static int p;
     void Update()
     {
         // test combat menu
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            p++;
+            index++;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            p--;
+            index--;
         }
-        p = Mathf.Clamp(p, 0, actionPanels.Count - 1);
-        marker.MoveTo(p);
-        Highlight(p);
+        index = Mathf.Clamp(index, 0, actionPanels.Count - 1);
+        marker.MoveTo(index);
+        Highlight(index);
     }
 
     public float GetPanelPos(int i)
@@ -87,7 +87,7 @@ public class CombatUI : MonoBehaviour, IUIPanel
 
     public void Show()
     {
-        Debug.Log(anim);
+        index = 0;
         if (anim != null)
         {
             anim.SetBool("Active", true);

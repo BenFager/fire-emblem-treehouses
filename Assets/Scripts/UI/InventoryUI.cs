@@ -9,6 +9,7 @@ public class InventoryUI : MonoBehaviour, IUIPanel
     public InventoryMarker marker;
     Animator anim;
     bool ready = false;
+    int index = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,6 @@ public class InventoryUI : MonoBehaviour, IUIPanel
     }
 
     // Update is called once per frame
-    static int p;
     void Update()
     {
         if (!ready)
@@ -45,19 +45,20 @@ public class InventoryUI : MonoBehaviour, IUIPanel
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            p++;
+            index++;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            p--;
+            index--;
         }
-        p = Mathf.Clamp(p, 0, itemListPanel.Count - 1);
-        marker.MoveTo(p);
-        itemListPanel.Highlight(p);
+        index = Mathf.Clamp(index, 0, itemListPanel.Count - 1);
+        marker.MoveTo(index);
+        itemListPanel.Highlight(index);
     }
 
     public void Show()
     {
+        index = 0;
         if (anim != null)
         {
             anim.SetBool("Active", true);
