@@ -8,20 +8,27 @@ public class CombatUI : MonoBehaviour, IUIPanel
     public CombatUIMarker marker;
     Animator anim;
     int index = 0;
+    CombatUIActions actionTypes;
+    List<CombatUIActions.Action> actions;
+    bool Active => anim.GetCurrentAnimatorStateInfo(0).IsName("Shown");
 
     void Awake()
     {
         anim = GetComponent<Animator>();
+        actionTypes = GetComponent<CombatUIActions>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Set(new List<string>()
+        Set(new List<CombatUIActions.Action>()
         {
-            "Attack", "Ability", "Item", "Trade", "Wait"
+            actionTypes.GetActionById("attack"),
+            actionTypes.GetActionById("ability"),
+            actionTypes.GetActionById("item"),
+            actionTypes.GetActionById("trade"),
+            actionTypes.GetActionById("wait"),
         });
-        marker.MoveTo(0);
         Show();
     }
 
@@ -29,17 +36,20 @@ public class CombatUI : MonoBehaviour, IUIPanel
     void Update()
     {
         // test combat menu
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Active)
         {
-            index++;
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                index++;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                index--;
+            }
+            index = Mathf.Clamp(index, 0, actionPanels.Count - 1);
+            marker.MoveTo(index);
+            Highlight(index);
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            index--;
-        }
-        index = Mathf.Clamp(index, 0, actionPanels.Count - 1);
-        marker.MoveTo(index);
-        Highlight(index);
     }
 
     public float GetPanelPos(int i)
@@ -47,7 +57,7 @@ public class CombatUI : MonoBehaviour, IUIPanel
         return actionPanels[i].GetComponent<RectTransform>().anchoredPosition.y;
     }
 
-    public void Set(List<string> actions)
+    public void Set(List<CombatUIActions.Action> actions)
     {
         if (actions.Count == 0)
         {
@@ -71,8 +81,10 @@ public class CombatUI : MonoBehaviour, IUIPanel
         // set action panel text
         for (int i = 0; i < actions.Count; i++)
         {
-            actionPanels[i].GetComponent<UITextPanel>().Set(actions[i]);
+            actionPanels[i].GetComponent<UITextPanel>().Set(actions[i].name);
         }
+        // save action list
+        this.actions = actions;
     }
 
     // highlights a panel as selection

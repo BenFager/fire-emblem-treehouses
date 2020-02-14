@@ -10,12 +10,13 @@ public class InventoryUI : MonoBehaviour, IUIPanel
     Animator anim;
     bool ready = false;
     int index = 0;
+    bool Active => anim.GetCurrentAnimatorStateInfo(0).IsName("Shown");
 
     // Start is called before the first frame update
     void Start()
     {
         anim = transform.Find("Canvas").Find("InventoryPanel").GetComponent<Animator>();
-        StartCoroutine(OpenInventory());
+        // StartCoroutine(OpenInventory());
     }
     IEnumerator OpenInventory()
     {
@@ -33,27 +34,25 @@ public class InventoryUI : MonoBehaviour, IUIPanel
         inventoryPanel.Show();
         marker.Show();
         Show();
-        ready = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!ready)
+        if (Active)
         {
-            return;
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                index++;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                index--;
+            }
+            index = Mathf.Clamp(index, 0, itemListPanel.Count - 1);
+            marker.MoveTo(index);
+            itemListPanel.Highlight(index);
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            index++;
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            index--;
-        }
-        index = Mathf.Clamp(index, 0, itemListPanel.Count - 1);
-        marker.MoveTo(index);
-        itemListPanel.Highlight(index);
     }
 
     public void Show()

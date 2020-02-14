@@ -38,7 +38,7 @@ public class CombatInfoUI : MonoBehaviour, IUIPanel
     void Start()
     {
         // test
-        StartCoroutine(ShowCombatInfoUI());
+        // StartCoroutine(ShowCombatInfoUI());
     }
     IEnumerator ShowCombatInfoUI()
     {

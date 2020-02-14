@@ -14,7 +14,6 @@ public class CameraMovement : MonoBehaviour
     {
         worldMap = GameObject.FindGameObjectWithTag("WorldMap").GetComponent<WorldMap>();
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
-        
     }
 
     // Update is called once per frame
@@ -29,9 +28,7 @@ public class CameraMovement : MonoBehaviour
         p = new Vector2(Mathf.Clamp(p.x, min.x, max.x), Mathf.Clamp(p.y, min.y, max.y));
         transform.position = new Vector3(p.x, p.y, transform.position.z);
         
-
-        
-        int camWidth = (int) (camRect.width / worldMap.arrayCellSize().x);
+        int camWidth = (int)(camRect.width / worldMap.arrayCellSize().x);
         int camHeight = (int)(camRect.height / worldMap.arrayCellSize().y);
         int scrollWidth = camWidth / 2 - 2;
         int scrollHeight = camHeight / 2 - 2;
@@ -46,5 +43,14 @@ public class CameraMovement : MonoBehaviour
         Vector2 min = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector2 max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         return new Rect(min, max - min);
+    }
+
+    // focus tile on cameraPosition = (0, 0) is center, (-1, -1) is bottom left, (1, 1) is top right
+    public void SelectTile(Vector2Int pos, Vector2 cameraPosition)
+    {
+        Rect camRect = CameraRect();
+        int camWidth = (int)(camRect.width / worldMap.arrayCellSize().x) / 2;
+        int camHeight = (int)(camRect.height / worldMap.arrayCellSize().y) / 2;
+        cameraPos = pos + new Vector2Int((int)(cameraPosition.x * camWidth), (int)(cameraPosition.y * camHeight));
     }
 }

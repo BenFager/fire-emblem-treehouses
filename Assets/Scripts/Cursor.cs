@@ -91,4 +91,9 @@ public class Cursor : MonoBehaviour
         isEnabled = false;
         renderer.color = Color.clear;
     }
+
+    public void SelectTile(Vector2Int pos)
+    {
+        this.pos = pos;
+    }
 }

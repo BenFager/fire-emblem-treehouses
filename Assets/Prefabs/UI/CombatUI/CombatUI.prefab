@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 982443242867253420}
   - component: {fileID: 7639562808717628062}
+  - component: {fileID: 562651591929244794}
   - component: {fileID: 4222864301318955966}
   m_Layer: 0
   m_Name: CombatUI
@@ -49,6 +50,44 @@ MonoBehaviour:
   actionPanels:
   - {fileID: 4881377095416449448}
   marker: {fileID: 7090869662631772419}
+--- !u!114 &562651591929244794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982443242867253423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7cbfdafe02d2704a8a00f501488311d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions:
+  - id: attack
+    name: Attack
+    action:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: ability
+    name: Ability
+    action:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: item
+    name: Item
+    action:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: trade
+    name: Trade
+    action:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: wait
+    name: Wait
+    action:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!95 &4222864301318955966
 Animator:
   serializedVersion: 3

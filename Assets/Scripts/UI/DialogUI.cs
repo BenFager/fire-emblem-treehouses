@@ -37,8 +37,6 @@ public class DialogUI : MonoBehaviour, IDialogUI
         {
             sprites[s.name] = s.sprite;
         }
-        // load dialog and run
-        DialogRunner.Run(this, "Assets/Dialog/control_test.yaml");
     }
 
     // Update is called once per frame
@@ -48,6 +46,12 @@ public class DialogUI : MonoBehaviour, IDialogUI
         {
             DialogRunner.RequestAdvance();
         }
+    }
+
+    public void Run(string s)
+    {
+        // load dialog and run, such as "Assets/Dialog/control_test.yaml"
+        DialogRunner.Run(this, s);
     }
 
     public void DisplayText(string name, string text)
